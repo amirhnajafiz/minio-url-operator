@@ -1,0 +1,3 @@
+/Users/amirhossein/Desktop/C/c-ping/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/amirhossein/Desktop/C/c-ping/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/amirhossein/Desktop/C/c-ping/cmake-build-debug/CMakeFiles/c_ping.dir
