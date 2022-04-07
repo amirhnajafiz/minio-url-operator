@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     char *message = "";
 
     struct hostent *server;
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_address;
 
     if (argc < 3) {
         error("Parameters required: <domain> <command>");
