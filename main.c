@@ -11,7 +11,9 @@
  */
 #include <netinet/in.h> /* struct sockaddr_in, struct sockaddr */
 #include <netdb.h> /* struct hostent, gethostbyname */
+
 #include "error/error.c"
+#include "api/api.c"
 
 int main(int argc, char *argv[]) {
     // defining the configs of our domain
