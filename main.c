@@ -9,6 +9,14 @@
  * requests to our domains and then processing the response.
  *
  */
+#include <stdio.h> /* printf, sprintf */
+#include <stdlib.h> /* exit */
+
+// error message handler
+void error(const char *msg) {
+    perror(msg);
+    exit(-1);
+}
 
 int main() {
     return 0;
