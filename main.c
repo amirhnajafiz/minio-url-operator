@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     // defining the configs of our domain
     int port = 80;
     char *host = "https://www.google.com";
-    char *message = "";
+    char *message_fmt = "";
 
     struct hostent *server;
     struct sockaddr_in serv_address;
@@ -27,6 +27,12 @@ int main(int argc, char *argv[]) {
     if (argc < 3) {
         error("Parameters required: <domain> <command>");
     }
+
+    int sock_id, bytes, sent, receive, total;
+    char message[1024], response[4096];
+
+    sprintf(message, message_fmt, argv[1], argv[2]);
+    printf("Request:\n%s\n",message);
 
     return 0;
 }
