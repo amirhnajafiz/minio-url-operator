@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     // checking the input arguments
     if (argc < 3) {
-        error("Parameters required: <domain> <command>");
+        error("![Parameters required] <domain> <command>");
     }
 
     int sock_fd, bytes, sent, receive, total;
@@ -39,7 +39,13 @@ int main(int argc, char *argv[]) {
     /* create the socket */
     sock_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (sock_fd < 0) {
-        error("ERROR opening socket");
+        error("![ERROR] opening socket");
+    }
+
+    /* lookup the ip address */
+    server = gethostbyname(host);
+    if (server == NULL) {
+        error("![ERROR] no such host");
     }
 
     return 0;
