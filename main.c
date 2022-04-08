@@ -21,18 +21,26 @@ int main(int argc, char *argv[]) {
     char *host = "https://www.google.com";
     char *message_fmt = "";
 
+    // server structs
     struct hostent *server;
     struct sockaddr_in serv_address;
 
+    // checking the input arguments
     if (argc < 3) {
         error("Parameters required: <domain> <command>");
     }
 
-    int sock_id, bytes, sent, receive, total;
+    int sock_fd, bytes, sent, receive, total;
     char message[1024], response[4096];
 
     sprintf(message, message_fmt, argv[1], argv[2]);
     printf("Request:\n%s\n",message);
+
+    /* create the socket */
+    sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock_fd < 0) {
+        error("ERROR opening socket");
+    }
 
     return 0;
 }
