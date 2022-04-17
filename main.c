@@ -11,6 +11,7 @@
  */
 #include <netinet/in.h> /* struct sockaddr_in, struct sockaddr */
 #include <netdb.h> /* struct hostent, gethostbyname */
+#include <string.h> /* memcpy, memset */
 
 #include "error/error.c"
 #include "api/api.c"
@@ -47,6 +48,12 @@ int main(int argc, char *argv[]) {
     if (server == NULL) {
         error("![ERROR] no such host");
     }
+
+    /* fill in the structure */
+    memset(&serv_address,0,sizeof(serv_address));
+    serv_address.sin_family = AF_INET;
+    serv_address.sin_port = htons(port);
+    memcpy(&serv_address.sin_addr.s_addr,server->h_addr,server->h_length);
 
     return 0;
 }
