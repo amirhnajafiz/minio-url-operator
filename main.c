@@ -90,5 +90,13 @@ int main(int argc, char *argv[]) {
         receive += bytes;
     } while (receive < total);
 
+    /*
+     * if the number of received bytes is the total size of the
+     * array then we have run out of space to store the response,
+     * and it hasn't all arrived yet - so that's a bad thing
+     */
+    if (receive == total)
+        error("ERROR storing complete response from socket");
+
     return 0;
 }
