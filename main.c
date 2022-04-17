@@ -55,5 +55,10 @@ int main(int argc, char *argv[]) {
     serv_address.sin_port = htons(port);
     memcpy(&serv_address.sin_addr.s_addr,server->h_addr,server->h_length);
 
+    /* connect the socket */
+    if (connect(sock_fd, (struct sockaddr *)&serv_address, sizeof(serv_address)) < 0) {
+        error("ERROR connecting");
+    }
+
     return 0;
 }
