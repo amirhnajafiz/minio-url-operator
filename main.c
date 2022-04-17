@@ -98,5 +98,11 @@ int main(int argc, char *argv[]) {
     if (receive == total)
         error("ERROR storing complete response from socket");
 
+    // closing socket connection
+    close(sock_fd);
+
+    // response
+    printf("[response] \n%s\n", response);
+
     return 0;
 }
