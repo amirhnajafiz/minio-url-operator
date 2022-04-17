@@ -4,5 +4,5 @@
 // error message handler
 void error(const char *msg) {
     perror(msg);
-    exit(-1);
+    exit(1);
 }

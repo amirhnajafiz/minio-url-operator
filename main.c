@@ -20,7 +20,7 @@
 int main(int argc, char *argv[]) {
     // defining the configs of our domain
     int port = 80;
-    char *host = "https://www.google.com";
+    char *host = "https://courses.aut.ac.ir/";
     char *message_fmt = "";
 
     // server structs
