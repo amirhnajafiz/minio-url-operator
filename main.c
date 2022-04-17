@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
     /* connect the socket */
     if (connect(sock_fd, (struct sockaddr *)&serv_address, sizeof(serv_address)) < 0) {
-        error("ERROR connecting");
+        error("![ERROR] connecting failed");
     }
 
     /* send the request byte to byte */
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     do {
         bytes = write(sock_fd,message + sent,total - sent);
         if (bytes < 0) {
-            error("ERROR writing message to socket");
+            error("![ERROR] failed writing message to socket");
         }
         if (bytes == 0)
             break;
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
     do {
         bytes = read(sock_fd, response + receive, total - receive);
         if (bytes < 0)
-            error("ERROR reading response from socket");
+            error("![ERROR] failed reading response from socket");
         if (bytes == 0)
             break;
         receive += bytes;
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
      * and it hasn't all arrived yet - so that's a bad thing
      */
     if (receive == total)
-        error("ERROR storing complete response from socket");
+        error("![ERROR] failed storing complete response from socket");
 
     // closing socket connection
     close(sock_fd);
