@@ -77,5 +77,18 @@ int main(int argc, char *argv[]) {
         sent += bytes;
     } while (sent < total);
 
+    /* receive the response byte to byte */
+    memset(response, 0, sizeof(response));
+    total = sizeof(response) - 1;
+    receive = 0;
+    do {
+        bytes = read(sock_fd, response + receive, total - receive);
+        if (bytes < 0)
+            error("ERROR reading response from socket");
+        if (bytes == 0)
+            break;
+        receive += bytes;
+    } while (receive < total);
+
     return 0;
 }
