@@ -1,4 +1,7 @@
-#include "error/error.c"
+#include <netinet/in.h> /* struct sockaddr_in, struct sockaddr */
+#include <netdb.h> /* struct hostent, gethostbyname */
+#include <string.h> /* memcpy, memset */
+#include <unistd.h> /* read, write, close */
 
 void http_call(char domain[], char command[]) {
     // defining the configs of our domain

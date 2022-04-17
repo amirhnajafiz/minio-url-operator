@@ -9,11 +9,6 @@
  * requests to our domains and then processing the response.
  *
  */
-#include <netinet/in.h> /* struct sockaddr_in, struct sockaddr */
-#include <netdb.h> /* struct hostent, gethostbyname */
-#include <string.h> /* memcpy, memset */
-#include <unistd.h> /* read, write, close */
-
 #include "error/error.c"
 #include "api/api.c"
 
