@@ -12,6 +12,7 @@
 #include <netinet/in.h> /* struct sockaddr_in, struct sockaddr */
 #include <netdb.h> /* struct hostent, gethostbyname */
 #include <string.h> /* memcpy, memset */
+#include <unistd.h> /* read, write, close */
 
 #include "error/error.c"
 #include "api/api.c"
@@ -31,7 +32,10 @@ int main(int argc, char *argv[]) {
         error("![Parameters required] <domain> <command>");
     }
 
-    int sock_fd, bytes, sent, receive, total;
+    int sock_fd;
+    uint total;
+    long bytes, sent, receive;
+
     char message[1024], response[4096];
 
     sprintf(message, message_fmt, argv[1], argv[2]);
@@ -59,6 +63,19 @@ int main(int argc, char *argv[]) {
     if (connect(sock_fd, (struct sockaddr *)&serv_address, sizeof(serv_address)) < 0) {
         error("ERROR connecting");
     }
+
+    /* send the request byte to byte */
+    total = strlen(message);
+    sent = 0;
+    do {
+        bytes = write(sock_fd,message + sent,total - sent);
+        if (bytes < 0) {
+            error("ERROR writing message to socket");
+        }
+        if (bytes == 0)
+            break;
+        sent += bytes;
+    } while (sent < total);
 
     return 0;
 }
