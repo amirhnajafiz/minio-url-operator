@@ -9,6 +9,8 @@
  * requests to our domains and then processing the response.
  *
  */
+#include <stdlib.h> /* exit, atoi, malloc, free */
+
 #include "error/error.c"
 #include "api/api.c"
 
@@ -17,12 +19,10 @@ int main(int argc, char *argv[]) {
     int i;
 
     /* first where are we going to send it? */
-    int portno = atoi(argv[2])>0?atoi(argv[2]):80;
-    char *host = strlen(argv[1])>0?argv[1]:"localhost";
+    int portno = atoi(argv[2]) > 0 ? atoi(argv[2]) : 80;
+    char *host = strlen(argv[1]) > 0 ? argv[1] : "localhost";
 
-    struct hostent *server;
-    struct sockaddr_in serv_addr;
-    int message_size;
+    uint message_size;
     char *message;
 
     // checking the input arguments
@@ -34,10 +34,10 @@ int main(int argc, char *argv[]) {
     message_size=0;
     if(!strcmp(argv[3],"GET"))
     {
-        message_size+=strlen("%s %s%s%s HTTP/1.0\r\n");        /* method         */
-        message_size+=strlen(argv[3]);                         /* path           */
-        message_size+=strlen(argv[4]);                         /* headers        */
-        if(argc>5)
+        message_size += strlen("%s %s%s%s HTTP/1.0\r\n");        /* method         */
+        message_size += strlen(argv[3]);                         /* path           */
+        message_size += strlen(argv[4]);                         /* headers        */
+        if(argc > 5)
             message_size+=strlen(argv[5]);                     /* query string   */
         for(i=6;i<argc;i++)                                    /* headers        */
             message_size+=strlen(argv[i])+strlen("\r\n");
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
         for(i=6;i<argc;i++)                                    /* headers        */
         {strcat(message,argv[i]);strcat(message,"\r\n");}
         if(argc>5)
-            sprintf(message+strlen(message),"Content-Length: %d\r\n",strlen(argv[5]));
+            sprintf(message+strlen(message),"Content-Length: %ld\r\n",strlen(argv[5]));
         strcat(message,"\r\n");                                /* blank line     */
         if(argc>5)
             strcat(message,argv[5]);                           /* body           */
