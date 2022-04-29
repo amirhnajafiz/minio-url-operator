@@ -3,11 +3,10 @@
 #include <string.h> /* memcpy, memset */
 #include <unistd.h> /* read, write, close */
 
-void http_call(char domain[], char command[]) {
+void http_call(char hos[], int pot, char msg[]) {
     // defining the configs of our domain
-    int port = 80;
-    char *host = "https://courses.aut.ac.ir/";
-    char *message_fmt = "";
+    int port = pot;
+    char *host = hos;
 
     // server structs
     struct hostent *server;
@@ -17,9 +16,10 @@ void http_call(char domain[], char command[]) {
     uint total;
     long bytes, sent, receive;
 
-    char message[1024], response[4096];
+    char* message = msg;
+    char response[4096];
 
-    sprintf(message, message_fmt, domain, command);
+    sprintf(message, "%s", hos);
     printf("Request:\n%s\n",message);
 
     /* create the socket */

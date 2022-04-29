@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     int i;
 
     /* first where are we going to send it? */
-    int portno = atoi(argv[2]) > 0 ? atoi(argv[2]) : 80;
+    int port_number = strtol(argv[2]) > 0 ? strtol(argv[2]) : 80;
     char *host = strlen(argv[1]) > 0 ? argv[1] : "localhost";
     char *message;
 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
     }
 
     // make and http call
-    http_call(argv[1], argv[2]);
+    http_call(host, port_number, message);
 
     return 0;
 }
