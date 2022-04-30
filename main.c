@@ -13,6 +13,7 @@
 
 #include "error/error.c"
 #include "api/api.c"
+#include "cmd/cmd.c"
 
 int main(int argc, char *argv[]) {
 
