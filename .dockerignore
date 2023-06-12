@@ -1,0 +1,4 @@
+build/
+README.md
+.gitignore
+.dockerignore
