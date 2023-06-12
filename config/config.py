@@ -6,7 +6,9 @@ class Config(object):
 
     def __init__(self):
         self.port = None
+        self.debug = True
 
     def load(self):
         """"load configs into class fields"""
-        self.port = read_value_from_env("HTTP_PORT")
+        self.port = int(read_value_from_env("HTTP_PORT"))
+        self.debug = bool(read_value_from_env("HTTP_DEBUG"))
