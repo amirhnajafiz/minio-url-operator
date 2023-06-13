@@ -25,6 +25,7 @@ With this operator, you can created a persistent url for your objects in Minio.
 - Minio token
 
 - Objects
+- Data
 
 #### Database
 
