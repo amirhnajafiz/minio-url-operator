@@ -1,9 +1,14 @@
+import minio
+from minio import Minio
+
+
 class MinioConnector(object):
-    def __int__(self):
-        pass
+    def __init__(self, host, access, secret):
+        self.conn = Minio(
+            host,
+            access_key=access,
+            secret_key=secret,
+        )
 
-    def get_object_link(self, key: str):
-        pass
-
-    def get_all_objects(self):
-        pass
+    def get_connection(self) -> minio.Minio:
+        return self.conn
