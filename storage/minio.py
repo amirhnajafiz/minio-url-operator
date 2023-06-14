@@ -3,7 +3,9 @@ from minio import Minio
 
 
 class MinioConnector(object):
-    def __init__(self, host, access, secret):
+    """MinioConnector is used to connect to Minio cluster"""
+
+    def __init__(self, host: str, access: str, secret: str):
         self.conn = Minio(
             host,
             access_key=access,
@@ -11,4 +13,8 @@ class MinioConnector(object):
         )
 
     def get_connection(self) -> minio.Minio:
+        """get minio connection
+
+        :return: minio connection
+        """
         return self.conn
