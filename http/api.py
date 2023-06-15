@@ -1,14 +1,14 @@
 from flask import Blueprint
-import sqlite3
-import minio
 
+from storage.sql import SQLConnector
+from storage.minio import MinioConnector
 from .handler.handler import Handler
 
 
 class API(object):
     """API manages the backend rest api"""
 
-    def __init__(self, database: sqlite3.Connection, minio_connection: minio.Minio):
+    def __init__(self, database: SQLConnector, minio_connection: MinioConnector):
         # create a blueprint for application apis
         self.blueprint = Blueprint('api_blueprint', __name__, url_prefix="/api")
 

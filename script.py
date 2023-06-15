@@ -23,6 +23,8 @@ minioC = MinioConnector(
 
 # create a new flask application
 app = Flask(__name__)
+
+# register blueprints
 app.register_blueprint(API(sqlC, minioC).get_blue_print())
 app.register_blueprint(Views().get_blue_print())
 

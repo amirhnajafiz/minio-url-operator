@@ -1,4 +1,3 @@
-import minio
 from minio import Minio
 
 
@@ -12,7 +11,7 @@ class MinioConnector(object):
             secret_key=secret,
         )
 
-    def get_connection(self) -> minio.Minio:
+    def get_connection(self) -> Minio:
         """get minio connection
 
         :return: minio connection
