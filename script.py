@@ -1,7 +1,7 @@
 from flask import Flask
 
 from http.api import API
-from http.views import views_blueprint
+from http.views import Views
 from config.config import Config
 
 
@@ -13,7 +13,7 @@ cfg.load()
 # create a new flask application
 app = Flask(__name__)
 app.register_blueprint(API().get_blue_print())
-app.register_blueprint(views_blueprint)
+app.register_blueprint(Views().get_blue_print())
 
 
 if __name__ == "__main__":
