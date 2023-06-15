@@ -2,6 +2,10 @@ from flask import Flask
 
 from http.api import API
 from http.views import Views
+
+from storage.minio import MinioConnector
+from storage.sql import SQLConnector
+
 from config.config import Config
 
 
@@ -9,6 +13,13 @@ from config.config import Config
 cfg = Config()
 cfg.load()
 
+# open connection to storages
+sqlC = SQLConnector(host=cfg.sql['host'])
+minioC = MinioConnector(
+    host=cfg.minio['host'],
+    access=cfg.minio['access'],
+    secret=cfg.minio['secret']
+)
 
 # create a new flask application
 app = Flask(__name__)

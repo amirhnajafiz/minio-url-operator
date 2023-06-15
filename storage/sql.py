@@ -5,7 +5,7 @@ import os
 class SQLConnector(object):
     """SQLConnector manages the connection to database"""
 
-    def __int__(self, host: str):
+    def __init__(self, host: str):
         self._create_host(host)
         self.connection = sqlite3.connect(host, check_same_thread=False)
 
