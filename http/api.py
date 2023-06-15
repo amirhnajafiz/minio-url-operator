@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from .handler import Handler
+from .handler.handler import Handler
 
 
 class API(object):
@@ -18,4 +18,8 @@ class API(object):
             api.get_objects()
 
     def get_blue_print(self):
+        """get api blueprint
+
+        :return: flask blueprint
+        """
         return self.blueprint
