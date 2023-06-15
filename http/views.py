@@ -22,5 +22,9 @@ class Views(object):
         def snappline_help_page():
             return render_template('help.snappline.html')
 
-    def get_blue_print(self):
+    def get_blue_print(self) -> Blueprint:
+        """get views blueprint
+
+        :return: flask blueprint
+        """
         return self.blueprint
