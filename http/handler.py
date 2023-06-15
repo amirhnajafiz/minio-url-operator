@@ -1,7 +1,12 @@
 class Handler(object):
-    def __init__(self):
-        self.database = None
-        self.minio = None
+    """Handler manages the logic of our backend"""
+
+    def __init__(self, database, minio):
+        self.database = database
+        self.minio = minio
 
     def get_objects(self):
+        pass
+
+    def get_object_url(self):
         pass
