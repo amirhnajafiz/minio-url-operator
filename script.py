@@ -1,7 +1,7 @@
 from flask import Flask
 
-from http.api import API
-from http.views import Views
+from internal.api import API
+from internal.views import Views
 
 from storage.minio import MinioConnector
 from storage.sql import SQLConnector
