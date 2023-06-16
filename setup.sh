@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+HTTP_PORT=8080 HTTP_DEBUG=True \
+  MINIO_HOST=localhost:9000 MINIO_ACCESS=AKIAIOSFODNN7EXAMPLE \
+  MINIO_SECRET=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY \
+  SQL_HOST=sql.db \
+  python3 script.py

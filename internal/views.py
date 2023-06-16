@@ -4,11 +4,7 @@ from flask import Blueprint, render_template
 class Views(object):
     def __init__(self):
         # create a blueprint for views
-        self.blueprint = Blueprint('views_blueprint',
-                                   __name__,
-                                   static_url_path='/',
-                                   static_folder='web/static',
-                                   template_folder='web/template')
+        self.blueprint = Blueprint('views_blueprint', __name__)
 
         @self.blueprint.route('/', methods=['GET'])
         def index_page():
