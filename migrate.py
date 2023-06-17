@@ -1,8 +1,15 @@
 import sys
+import logging
 
 from config.config import Config
 from storage.sql import SQLConnector
 
+
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.DEBUG,
+    format='[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+)
 
 # load app configs
 cfg = Config()
@@ -24,5 +31,9 @@ else:
 with open(f'database/sql/{path}', 'r') as file:
     query = file.read()
 
+logging.info(f'migration started: {sys.argv[1]}')
+
 # execute migration
 cursor.execute(query)
+
+logging.info("migration completed")
