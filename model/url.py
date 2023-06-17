@@ -5,7 +5,7 @@ from datetime import datetime
 class URL(object):
     """URL is our url database model"""
 
-    def __init__(self, key, url):
+    def __init__(self, key="", url=""):
         self.id = None
         self.key = key
         self.url = url
