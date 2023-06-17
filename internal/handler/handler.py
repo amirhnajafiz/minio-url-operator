@@ -16,7 +16,9 @@ class Handler(object):
         :param prefix: objects prefix
         :return: list of objects metadata
         """
-        pass
+        client = self.minio_connection.get_connection()
+
+        return client.list_objects(bucket, prefix=prefix)
 
     def get_object_url(self, bucket: str, key: str) -> str:
         """get selected object url
@@ -35,5 +37,9 @@ class Handler(object):
         # todo: [2] if exists check the url time past 7 days
         # todo: [3] if 1 or 2 create a new link
         # todo: [4] return the link
+
+        # url = client.presigned_get_object(
+        #     "my-bucket", "my-object", expires=timedelta(hours=2),
+        # )
 
         return ""
