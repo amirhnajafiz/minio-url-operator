@@ -11,7 +11,18 @@ cfg.load()
 # open connection to storages
 sqlC = SQLConnector(host=cfg.sql['host'])
 
+cursor = sqlC.get_cursor()
+path = ""
+
+# choosing the migration type
 if sys.argv[1] == "up":
-    pass
+    path = "up-migration-object_urls-001.sql"
 else:
-    pass
+    path = "down-migration-object_urls-001.sql"
+
+# read migration query
+with open(f'database/sql/{path}', 'r') as file:
+    query = file.read()
+
+# execute migration
+cursor.execute(query)
