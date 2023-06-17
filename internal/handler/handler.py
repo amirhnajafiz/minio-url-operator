@@ -10,9 +10,21 @@ class Handler(object):
         self.minio_connection = minio_connection
 
     def get_objects(self, bucket, prefix=""):
+        """get objects of a bucket based on prefix
+
+        :param bucket: minio bucket
+        :param prefix: objects prefix
+        :return: list of objects metadata
+        """
         pass
 
-    def get_object_url(self, bucket, key):
+    def get_object_url(self, bucket: str, key: str) -> str:
+        """get selected object url
+
+        :param bucket: object minio bucket
+        :param key: object key
+        :return: object url
+        """
         # get a new cursor
         cursor = self.database.get_cursor()
 
@@ -23,3 +35,5 @@ class Handler(object):
         # todo: [2] if exists check the url time past 7 days
         # todo: [3] if 1 or 2 create a new link
         # todo: [4] return the link
+
+        return ""
