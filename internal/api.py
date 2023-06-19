@@ -27,6 +27,18 @@ class API(object):
 
             return jsonify(api.get_objects_metadata(bucket, request.args.get("prefix", "")))
 
+        @self.blueprint.route("/objects/<bucket>/<key>", methods=['GET'])
+        def get_object_url(bucket, key):
+            """get object url
+
+            :param bucket: object bucket
+            :param key: object key
+            :return: object url
+            """
+            return {
+                'address': api.get_object_url(bucket, key)
+            }
+
     def get_blue_print(self) -> Blueprint:
         """get api blueprint
 
