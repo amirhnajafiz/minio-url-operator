@@ -11,6 +11,8 @@ class Handler(object):
     def __init__(self, database: SQLConnector, minio_connection: MinioConnector):
         self.database = database
         self.minio_connection = minio_connection
+        self.time_factor = 3600 * 24 * 6
+        self.time_limit = 7
 
     def get_objects_metadata(self, bucket, prefix=""):
         """get objects of a bucket based on prefix
@@ -47,6 +49,30 @@ class Handler(object):
 
         return url, True
 
+    def check_url_time(self, url: URL) -> bool:
+        """check if the url is expired or not
+
+        :param url: input url object
+        :return: true or false
+        """
+        t1 = datetime.fromtimestamp(url.createdAt)
+        t2 = datetime.now()
+
+        return ((t2 - t1).total_seconds() / self.time_factor) < self.time_limit
+
+    def create_url_for_object(self, bucket: str, key: str) -> str:
+        """create url for object in minio
+
+        :param bucket: object bucket
+        :param key: object name
+        :return: url of object
+        """
+        client = self.minio_connection.get_connection()
+
+        return client.presigned_get_object(
+            bucket, key, expires=self.time_limit,
+        )
+
     def get_object_url(self, bucket: str, key: str) -> str:
         """get selected object url
 
@@ -54,16 +80,6 @@ class Handler(object):
         :param key: object key
         :return: object url
         """
-        t1 = datetime.fromtimestamp(url.createdAt)
-        t2 = datetime.now()
-
-        if ((t2 - t1).total_seconds() / 3600 * 24 * 6) < 7:
-            client = self.minio_connection.get_connection()
-            address = client.presigned_get_object(
-                bucket, key, expires=7,
-            )
-
-            url.url = address
 
         # todo: [1] if not exists create one
         # todo: [2] if exists check the url time past 7 days
