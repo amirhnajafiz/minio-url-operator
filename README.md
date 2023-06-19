@@ -15,19 +15,3 @@ With this operator, you can created a persistent url for your objects in Minio.
 ### Kubernetes
 
 ### Dashboard
-
-## How it works?
-
-### Configs
-
-- Minio cluster
-- Minio user
-- Minio token
-
-- Objects
-- Data
-
-#### Database
-
-- SQLite3
-- URLs table
