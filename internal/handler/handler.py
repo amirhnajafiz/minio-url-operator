@@ -25,7 +25,7 @@ class Handler(object):
 
         return client.list_objects(bucket, prefix=prefix)
 
-    def get_object(self, bucket: str, key: str) -> (URL, bool):
+    def __get_object__(self, bucket: str, key: str) -> (URL, bool):
         """get object from database
 
         :param bucket: object bucket
@@ -51,7 +51,7 @@ class Handler(object):
 
         return url, True
 
-    def check_url_time(self, url: URL) -> bool:
+    def __check_url_time__(self, url: URL) -> bool:
         """check if the url is expired or not
 
         :param url: input url object
@@ -62,7 +62,7 @@ class Handler(object):
 
         return ((t2 - t1).total_seconds() / self.time_factor) < self.time_limit
 
-    def create_url_for_object(self, bucket: str, key: str) -> str:
+    def __create_url_for_object__(self, bucket: str, key: str) -> str:
         """create url for object in minio
 
         :param bucket: object bucket
@@ -75,7 +75,7 @@ class Handler(object):
             bucket, key, expires=self.time_limit,
         )
 
-    def create_object(self, url: URL):
+    def __create_object__(self, url: URL):
         """create a new object in database
 
         :param url: url object
@@ -89,7 +89,7 @@ class Handler(object):
 
         cursor.close()
 
-    def update_object_url(self, url: URL):
+    def __update_object_url__(self, url: URL):
         """update url for an object
 
         :param url: url object
@@ -111,18 +111,18 @@ class Handler(object):
         :return: object url
         """
         # get object from database
-        url, valid = self.get_object(bucket, key)
+        url, valid = self.__get_object__(bucket, key)
 
         # if not valid then create url and save it into database
         if not valid:  # create a new instance
-            url = URL(bucket, key, self.create_url_for_object(bucket, key))
+            url = URL(bucket, key, self.__create_url_for_object__(bucket, key))
             url.createdAt = datetime.now()
 
-            self.create_object(url)
-        elif not self.check_url_time(url):  # if it was expired create new one
-            url.url = self.create_url_for_object(url.bucket, url.key)
+            self.__create_object__(url)
+        elif not self.__check_url_time__(url):  # if it was expired create new one
+            url.url = self.__create_url_for_object__(url.bucket, url.key)
             url.createdAt = datetime.now()
 
-            self.update_object_url(url)
+            self.__update_object_url__(url)
 
         return url.url
