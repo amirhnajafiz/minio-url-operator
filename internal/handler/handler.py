@@ -89,6 +89,20 @@ class Handler(object):
 
         cursor.close()
 
+    def update_object_url(self, url: URL):
+        """update url for an object
+
+        :param url: url object
+        """
+        # get a new cursor
+        cursor = self.database.get_cursor()
+
+        cursor.execute("UPDATE object_urls SET url=?, created_at=? WHERE id=?", [url.url, url.createdAt, url.id])
+
+        # todo: commit
+
+        cursor.close()
+
     def get_object_url(self, bucket: str, key: str) -> str:
         """get selected object url
 
