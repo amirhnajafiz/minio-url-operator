@@ -110,10 +110,19 @@ class Handler(object):
         :param key: object key
         :return: object url
         """
+        # get object from database
+        url, valid = self.get_object(bucket, key)
 
-        # todo: [1] if not exists create one
-        # todo: [2] if exists check the url time past 7 days
-        # todo: [3] if 1 or 2 create a new link
-        # todo: [4] return the link
+        # if not valid then create url and save it into database
+        if not valid:  # create a new instance
+            url = URL(bucket, key, self.create_url_for_object(bucket, key))
+            url.createdAt = datetime.now()
 
-        return ""
+            self.create_object(url)
+        elif not self.check_url_time(url):  # if it was expired create new one
+            url.url = self.create_url_for_object(url.bucket, url.key)
+            url.createdAt = datetime.now()
+
+            self.update_object_url(url)
+
+        return url.url
