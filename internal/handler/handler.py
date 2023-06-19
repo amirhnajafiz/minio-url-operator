@@ -36,7 +36,7 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         # select a url from database
-        cursor.execute(f'SELECT * FROM object_urls WHERE bucket = ? AND object = ?', [bucket, key])
+        cursor.execute(f'SELECT * FROM object_urls WHERE bucket = ? AND object = ?;', [bucket, key])
 
         # fetch the first item
         record = cursor.fetchone()
@@ -46,6 +46,8 @@ class Handler(object):
         # create the url
         url = URL()
         url.read(record)
+
+        cursor.close()
 
         return url, True
 
@@ -72,6 +74,20 @@ class Handler(object):
         return client.presigned_get_object(
             bucket, key, expires=self.time_limit,
         )
+
+    def create_object(self, url: URL):
+        """create a new object in database
+
+        :param url: url object
+        """
+        # get a new cursor
+        cursor = self.database.get_cursor()
+
+        cursor.execute("INSERT INTO object_urls (bucket, object, url, created_at) VALUES (?,?,?,?);", url.write())
+
+        # todo: commit
+
+        cursor.close()
 
     def get_object_url(self, bucket: str, key: str) -> str:
         """get selected object url

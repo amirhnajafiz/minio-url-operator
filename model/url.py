@@ -5,8 +5,9 @@ from datetime import datetime
 class URL(object):
     """URL is our url database model"""
 
-    def __init__(self, key="", url=""):
+    def __init__(self, bucket="", key="", url=""):
         self.id = None
+        self.bucket = bucket
         self.key = key
         self.url = url
         self.createdAt = datetime.now()
@@ -18,9 +19,10 @@ class URL(object):
         :return: None
         """
         self.id = row[0]
-        self.key = row[1]
-        self.url = row[2]
-        self.createdAt = row[3]
+        self.bucket = row[1]
+        self.key = row[2]
+        self.url = row[3]
+        self.createdAt = row[4]
 
     def write(self) -> list:
         """write values into a list
@@ -28,6 +30,7 @@ class URL(object):
         :return: list
         """
         return [
+            self.bucket,
             self.key,
             self.url,
             self.createdAt
