@@ -13,6 +13,10 @@ class SQLConnector(object):
         """returns a cursor of connection"""
         return self.connection.cursor()
 
+    def commit(self):
+        """commit updates on connection"""
+        self.connection.commit()
+
     def close_connection(self):
         """closes the database connection"""
         self.connection.close()

@@ -85,7 +85,7 @@ class Handler(object):
 
         cursor.execute("INSERT INTO object_urls (bucket, object, url, created_at) VALUES (?,?,?,?);", url.write())
 
-        # todo: commit
+        self.database.commit()
 
         cursor.close()
 
@@ -99,7 +99,7 @@ class Handler(object):
 
         cursor.execute("UPDATE object_urls SET url=?, created_at=? WHERE id=?", [url.url, url.createdAt, url.id])
 
-        # todo: commit
+        self.database.commit()
 
         cursor.close()
 
