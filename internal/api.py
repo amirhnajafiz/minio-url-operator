@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 
 from storage.sql import SQLConnector
 from storage.minio import MinioConnector
@@ -17,7 +17,15 @@ class API(object):
 
         @self.blueprint.route("/objects", methods=['GET'])
         def get_objects():
-            api.get_objects()
+            """get objects metadata
+
+            :return: list of objects of a bucket with prefix
+            """
+            bucket = request.args.get("bucket", "")
+            if bucket == "":
+                return "Bucket cannot be empty", 400
+
+            return jsonify(api.get_objects_metadata(bucket, request.args.get("prefix", "")))
 
     def get_blue_print(self) -> Blueprint:
         """get api blueprint
