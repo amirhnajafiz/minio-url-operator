@@ -12,7 +12,7 @@ class Handler(object):
         self.database = database
         self.minio_connection = minio_connection
 
-    def get_objects(self, bucket, prefix=""):
+    def get_objects_metadata(self, bucket, prefix=""):
         """get objects of a bucket based on prefix
 
         :param bucket: minio bucket
@@ -23,12 +23,12 @@ class Handler(object):
 
         return client.list_objects(bucket, prefix=prefix)
 
-    def get_object_url(self, bucket: str, key: str) -> str:
-        """get selected object url
+    def get_object(self, bucket: str, key: str) -> (URL, bool):
+        """get object from database
 
-        :param bucket: object minio bucket
+        :param bucket: object bucket
         :param key: object key
-        :return: object url
+        :return: URL if exists, None if not exists
         """
         # get a new cursor
         cursor = self.database.get_cursor()
@@ -38,11 +38,22 @@ class Handler(object):
 
         # fetch the first item
         record = cursor.fetchone()
+        if record is None:
+            return URL(), False
 
         # create the url
         url = URL()
         url.read(record)
 
+        return url, True
+
+    def get_object_url(self, bucket: str, key: str) -> str:
+        """get selected object url
+
+        :param bucket: object minio bucket
+        :param key: object key
+        :return: object url
+        """
         t1 = datetime.fromtimestamp(url.createdAt)
         t2 = datetime.now()
 
