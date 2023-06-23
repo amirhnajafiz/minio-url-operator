@@ -12,7 +12,7 @@ class Views(object):
 
             :return: index.html template
             """
-            return render_template('index.html')
+            return render_template('index.html', title="MUO: Home")
 
         @self.blueprint.route('/docs', methods=['GET'])
         def help_page():
