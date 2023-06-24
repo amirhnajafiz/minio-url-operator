@@ -12,15 +12,15 @@ class Views(object):
 
             :return: index.html template
             """
-            return render_template('index.html', title="MUO: Home")
+            return render_template('index.j2', title="MUO: Home")
 
         @self.blueprint.route('/docs', methods=['GET'])
         def help_page():
-            return render_template('help.html')
+            return render_template('help.j2')
 
         @self.blueprint.route('/docs/snappline', methods=['GET'])
         def snappline_help_page():
-            return render_template('help.snappline.html')
+            return render_template('help.snappline.j2')
 
     def get_blue_print(self) -> Blueprint:
         """get views blueprint
