@@ -6,5 +6,6 @@
 HTTP_PORT=8080 HTTP_DEBUG=True \
   MINIO_HOST=localhost:9000 MINIO_ACCESS=U2r7I4O5XvAJGbTe4cSc \
   MINIO_SECRET=8ZmchLOiBPCXQweKnJKAu86vjaaOU25ZzndyGXW3 \
+  MINIO_SECURE=False \
   SQL_HOST=database/sql.db \
   python3 script.py
