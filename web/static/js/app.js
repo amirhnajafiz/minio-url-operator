@@ -1,3 +1,38 @@
+// create tables from object names.
+function generateTable(data) {
+    let mainTable = document.createElement("table");
+
+    let nameHeader = document.createElement("th");
+    nameHeader.innerText = "name";
+
+    let linkHeader = document.createElement("th");
+    linkHeader.innerText = "link";
+
+    mainTable.appendChild(nameHeader);
+    mainTable.appendChild(linkHeader);
+    mainTable.appendChild(document.createElement("tr"));
+
+    data.forEach((name) => {
+        let nameField = document.createElement("td");
+        nameField.innerText = name;
+
+        let linkField = document.createElement("td");
+        let linkButton = document.createElement("button");
+        linkButton.onclick = function () {
+            getObjectURL(name);
+        };
+        linkButton.innerText = "Get URL";
+
+        linkField.appendChild(linkButton);
+
+        mainTable.appendChild(nameField);
+        mainTable.appendChild(linkButton);
+        mainTable.appendChild(document.createElement("tr"));
+    })
+
+    document.getElementById("response-div").appendChild(mainTable);
+}
+
 // get object of a bucket
 function getObjects() {
     let bucket = document.getElementById("bucket").value;
@@ -9,6 +44,8 @@ function getObjects() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
+
+            generateTable(data);
         })
         .catch((e) => {
             console.error(e);
