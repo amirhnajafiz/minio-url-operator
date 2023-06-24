@@ -23,7 +23,9 @@ class Handler(object):
         """
         client = self.minio_connection.get_connection()
 
-        return client.list_objects(bucket, prefix=prefix)
+        objects = client.list_objects(bucket, prefix=prefix)
+
+        return [item for item in objects]
 
     def __get_object__(self, bucket: str, key: str) -> (URL, bool):
         """get object from database

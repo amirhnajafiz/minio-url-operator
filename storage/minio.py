@@ -9,6 +9,7 @@ class MinioConnector(object):
             host,
             access_key=access,
             secret_key=secret,
+            secure=False,
         )
 
     def get_connection(self) -> Minio:

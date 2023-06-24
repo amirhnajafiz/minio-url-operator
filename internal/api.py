@@ -25,7 +25,9 @@ class API(object):
             if bucket == "":
                 return "Bucket cannot be empty", 400
 
-            return jsonify(api.get_objects_metadata(bucket, request.args.get("prefix", "")))
+            objects = api.get_objects_metadata(bucket, request.args.get("prefix", ""))
+
+            return jsonify([item.object_name for item in objects])
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['GET'])
         def get_object_url(bucket, key):
