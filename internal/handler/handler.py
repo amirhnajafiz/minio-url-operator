@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from storage.sql import SQLConnector
 from storage.minio import MinioConnector
@@ -74,7 +74,7 @@ class Handler(object):
         client = self.minio_connection.get_connection()
 
         return client.presigned_get_object(
-            bucket, key, expires=self.time_limit,
+            bucket, key, expires=timedelta(days=self.time_limit),
         )
 
     def __create_object__(self, url: URL):
