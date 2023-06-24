@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- css files --->
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+        <!-- css files --->
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
 
-    <title>
-        {% block title %}
-            {{ title }}
-        {% endblock title %}
-    </title>
-</head>
-<body>
-    <!-- Jinja2 content -->
-    {% block content %}
-    {% endblock content %}
+        <title>
+            {% block title %}
+                {{ title }}
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        <div>
+            <!-- Jinja2 content -->
+            {% block content %}
+            {% endblock content %}
+        </div>
 
-    <!-- JS files -->
-    <script src="/js/app.js"></script>
-</body>
+        <!-- JS files -->
+        <script src="/js/app.js"></script>
+    </body>
 </html>
