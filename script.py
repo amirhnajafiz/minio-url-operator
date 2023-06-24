@@ -1,4 +1,5 @@
 from flask import Flask
+import sys
 
 from internal.api import API
 from internal.views import Views
@@ -11,15 +12,27 @@ from config.config import Config
 
 # load app configs
 cfg = Config()
-cfg.load()
+
+error, flag = cfg.load()
+if flag:  # if error occurs
+    print(error)
+    sys.exit(-1)
 
 # open connection to storages
 sqlC = SQLConnector(host=cfg.sql['host'])
+
 minioC = MinioConnector(
     host=cfg.minio['host'],
     access=cfg.minio['access'],
-    secret=cfg.minio['secret']
+    secret=cfg.minio['secret'],
+    secure=False,
 )
+
+errorC, flag = minioC.ping()
+if flag:
+    print(errorC)
+    sys.exit(-2)
+
 
 # create a new flask application
 app = Flask(__name__,

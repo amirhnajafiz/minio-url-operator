@@ -4,12 +4,12 @@ from minio import Minio
 class MinioConnector(object):
     """MinioConnector is used to connect to Minio cluster"""
 
-    def __init__(self, host: str, access: str, secret: str):
+    def __init__(self, host: str, access: str, secret: str, secure: bool):
         self.conn = Minio(
             host,
             access_key=access,
             secret_key=secret,
-            secure=False,
+            secure=secure,
         )
 
     def ping(self) -> (str, bool):
