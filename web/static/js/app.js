@@ -29,7 +29,7 @@ function generateTable(data) {
         mainTable.appendChild(nameField);
         mainTable.appendChild(linkButton);
         mainTable.appendChild(document.createElement("tr"));
-    })
+    });
 
     responseDiv.innerHTML = "";
     responseDiv.appendChild(mainTable);
