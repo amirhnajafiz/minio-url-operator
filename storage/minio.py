@@ -12,6 +12,18 @@ class MinioConnector(object):
             secure=False,
         )
 
+    def ping(self) -> (str, bool):
+        """ping minio cluster
+
+        :return: (error message, error flag)
+        """
+        try:
+            self.conn.bucket_exists("test_bucket")
+        except Exception as e:
+            return f"[minioConnector.ping]' failed to connect to minio cluster error={e}", True
+
+        return "OK", False
+
     def get_connection(self) -> Minio:
         """get minio connection
 
