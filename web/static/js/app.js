@@ -62,7 +62,13 @@ function getObjectURL(key) {
     fetch(`/api/objects/${bucket}/${key}`)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            let text = data['address'];
+
+            navigator.clipboard.writeText(text).then(function() {
+                alert('URL copied to clipboard.')
+            }, function(err) {
+                console.error(`could not copy text error=${err}`);
+            });
         })
         .catch((e) => {
             console.error(e);
