@@ -1,5 +1,6 @@
 // create tables from object names.
 function generateTable(data) {
+    let responseDiv = document.getElementById("response-div");
     let mainTable = document.createElement("table");
 
     let nameHeader = document.createElement("th");
@@ -30,7 +31,8 @@ function generateTable(data) {
         mainTable.appendChild(document.createElement("tr"));
     })
 
-    document.getElementById("response-div").appendChild(mainTable);
+    responseDiv.innerHTML = "";
+    responseDiv.appendChild(mainTable);
 }
 
 // get object of a bucket
