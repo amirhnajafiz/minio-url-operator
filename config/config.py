@@ -11,13 +11,21 @@ class Config(object):
         self.minio = {}
         self.sql = {}
 
-    def load(self):
-        """"load configs into class fields"""
-        self.port = int(read_value_from_env("HTTP_PORT"))
-        self.debug = bool(read_value_from_env("HTTP_DEBUG"))
+    def load(self) -> (str, bool):
+        """"load configs into class fields
 
-        self.minio['host'] = read_value_from_env("MINIO_HOST")
-        self.minio['access'] = read_value_from_env("MINIO_ACCESS")
-        self.minio['secret'] = read_value_from_env("MINIO_SECRET")
+        :returns: (error type, error flag)
+        """
+        try:
+            self.port = int(read_value_from_env("HTTP_PORT"))
+            self.debug = bool(read_value_from_env("HTTP_DEBUG"))
 
-        self.sql['host'] = read_value_from_env("SQL_HOST")
+            self.minio['host'] = read_value_from_env("MINIO_HOST")
+            self.minio['access'] = read_value_from_env("MINIO_ACCESS")
+            self.minio['secret'] = read_value_from_env("MINIO_SECRET")
+
+            self.sql['host'] = read_value_from_env("SQL_HOST")
+        except Exception as e:
+            return f"[config.load] failed to read params error={e}", True
+
+        return "OK", False
