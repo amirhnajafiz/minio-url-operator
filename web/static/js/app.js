@@ -19,11 +19,10 @@ function getObjects() {
 }
 
 // get url of an object
-function getObjectURL() {
+function getObjectURL(key) {
     let bucket = document.getElementById("bucket").value;
-    let object = document.getElementById("object").value;
 
-    fetch(`/api/objects/${bucket}/${object}`)
+    fetch(`/api/objects/${bucket}/${key}`)
         .then((response) => response.json())
         .then((data) => {
             console.log(data);

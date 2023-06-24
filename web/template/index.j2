@@ -11,4 +11,14 @@
     in Minio cluster.
 </div>
 
+<div>
+    <label for="bucket">Bucket (required)</label>
+    <input id="bucket" type="text" />
+    <label for="prefix">Prefix (optional)</label>
+    <input id="prefix" type="text" />
+    <button onclick="getObjects()">Get Objects</button>
+</div>
+
+<div id="response-div"></div>
+
 {% endblock content %}
