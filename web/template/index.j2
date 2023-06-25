@@ -8,7 +8,10 @@
 
 <div class="row page-description">
     By using MUO you can get user readable addresses for your objects
-    in Minio cluster.
+    in Minio cluster. These addresses are public and you can share them
+    with anyone the your like. Since Minio provides shared urls with a
+    maximum 7 days limit, you can use this operator to get fresh links
+    everytime you want.
 </div>
 
 <div class="row">
@@ -23,7 +26,7 @@
         </div>
         <button class="btn" onclick="getObjects()">Get Objects</button>
     </div>
-    <div id="response-div" class="row"></div>
+    <div id="response-div" class="in-row"></div>
 </div>
 
 {% endblock content %}

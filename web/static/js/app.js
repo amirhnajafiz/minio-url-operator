@@ -4,10 +4,10 @@ function generateTable(data) {
     let mainTable = document.createElement("table");
 
     let nameHeader = document.createElement("th");
-    nameHeader.innerText = "name";
+    nameHeader.innerText = "Object name";
 
     let linkHeader = document.createElement("th");
-    linkHeader.innerText = "link";
+    linkHeader.innerText = "Object link";
 
     mainTable.appendChild(nameHeader);
     mainTable.appendChild(linkHeader);
@@ -16,6 +16,7 @@ function generateTable(data) {
     data.forEach((name) => {
         let nameField = document.createElement("td");
         nameField.innerText = name;
+        nameField.style.textAlign = 'left';
 
         let linkField = document.createElement("td");
         let linkButton = document.createElement("button");
@@ -27,7 +28,7 @@ function generateTable(data) {
         linkField.appendChild(linkButton);
 
         mainTable.appendChild(nameField);
-        mainTable.appendChild(linkButton);
+        mainTable.appendChild(linkField);
         mainTable.appendChild(document.createElement("tr"));
     });
 
