@@ -33,12 +33,22 @@ body {
 }
 
 .page-header {
-    margin-bottom: 40px;
-    border-radius: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
     background-color: #ffff;
     padding: 25px;
 }
 
+.page-description {
+    border-radius: 15px;
+    background-color: #ffff;
+    padding: 25px;
+    text-align: justify;
+}
+
 .row {
-    margin: 50px 0;
+    margin: 20px 0;
+    border-radius: 15px;
+    background-color: #ffff;
+    padding: 25px;
 }
