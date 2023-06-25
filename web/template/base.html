@@ -15,9 +15,14 @@
     </head>
     <body>
         <div class="container">
-            <!-- Jinja2 content -->
-            {% block content %}
-            {% endblock content %}
+            <div class="navigation">
+                Navigation
+            </div>
+            <div class="context">
+                <!-- Jinja2 content -->
+                {% block content %}
+                {% endblock content %}
+            </div>
         </div>
 
         <!-- JS files -->

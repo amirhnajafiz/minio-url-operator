@@ -5,7 +5,40 @@
     font-family: "Roboto Light", serif;
 }
 
+body {
+    background-color: #00f195;
+}
+
 .container {
+    background-color: #ffff;
     margin: 50px auto;
-    width: 75%;
+    width: 80%;
+    border: 1px solid #ffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.3);
+
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.navigation {
+    padding: 25px;
+}
+
+.context {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #F0F8FFFF;
+    padding: 25px;
+}
+
+.page-header {
+    margin-bottom: 40px;
+    border-radius: 20px;
+    background-color: #ffff;
+    padding: 25px;
+}
+
+.row {
+    margin: 50px 0;
 }
