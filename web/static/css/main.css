@@ -71,3 +71,31 @@ body {
     background-color: #ffff;
     padding: 25px;
 }
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #F0F8FFFF;
+}
+
+.input {
+    padding: 5px 10px;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: #00f195;
+    color: #ffff;
+    border-radius: 5px;
+    outline: none;
+    border: 0 solid black;
+}
+
+.btn:hover {
+    background-color: #00c77c;
+}
+
+.red-color {
+    color: #ff310d;
+}

@@ -12,12 +12,17 @@
 </div>
 
 <div class="row">
-    <label for="bucket">Bucket (required)</label>
-    <input id="bucket" type="text" />
-    <label for="prefix">Prefix (optional)</label>
-    <input id="prefix" type="text" />
-    <button onclick="getObjects()">Get Objects</button>
-
+    <div class="input-row">
+        <div>
+            <label for="bucket">Bucket <span class="red-color">(required)</span></label>
+            <input id="bucket" class="input" placeholder="bucket" type="text" />
+        </div>
+        <div>
+            <label for="prefix">Prefix (optional)</label>
+            <input id="prefix" class="input" placeholder="line" type="text" />
+        </div>
+        <button class="btn" onclick="getObjects()">Get Objects</button>
+    </div>
     <div id="response-div" class="row"></div>
 </div>
 
