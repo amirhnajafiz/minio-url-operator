@@ -36,6 +36,10 @@ body {
     text-decoration: none;
 }
 
+.nav-item:hover {
+    background-color: #00c77c;
+}
+
 .nav-item > span {
     margin-left: 10px;
 }
