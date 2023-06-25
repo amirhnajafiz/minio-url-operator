@@ -3,11 +3,34 @@
 {% block content %}
 
 <h2 class="page-header">
-    Help and Documents for using MUP
+    Use Minio URL Operator APIs
 </h2>
 
 <div class="row page-description">
-    How to use MUP?
+    MUO provides APIs to work with from your application. You can use them
+    in any application that you want. In order to use MUO APIs
+    you need to make HTTP requests as follow:<br /><br />
+    <hr />
+    <br />
+    List of objects: (Query param)<br /><br />
+    <pre>
+        curl -X GET "localhost:8080/api/objects?bucket=snapp&prefix=list"
+    </pre>
+    Response:<br /><br />
+    <pre>
+        ['image.jpg', 'file.pdf', 'reports.txt']
+    </pre>
+    <br />
+    <hr />
+    <br />
+    Get URL of an object: (URL param)<br /><br />
+    <pre>
+        curl -X GET "localhost:8080/api/objects/:bucket/:key"
+    </pre>
+    Response:<br /><br />
+    <pre>
+        { 'address': 'http://minio-cluster/bucket/addressofobject' }
+    </pre>
 </div>
 
 {% endblock content %}
