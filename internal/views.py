@@ -16,11 +16,11 @@ class Views(object):
 
         @self.blueprint.route('/docs', methods=['GET'])
         def help_page():
-            return render_template('help.j2')
+            return render_template('help.j2', title="MUO: Docs")
 
         @self.blueprint.route('/docs/snappline', methods=['GET'])
         def snappline_help_page():
-            return render_template('help.snappline.j2')
+            return render_template('help.snappline.j2', title="MUO: Snappline!")
 
     def get_blue_print(self) -> Blueprint:
         """get views blueprint

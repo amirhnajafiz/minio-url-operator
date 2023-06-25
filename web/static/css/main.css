@@ -25,6 +25,21 @@ body {
     padding: 25px;
 }
 
+.nav-item {
+    color: #ffff;
+    margin: 15px 20px;
+    padding: 7px 10px;
+    background-color: #00f195;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-item > span {
+    margin-left: 10px;
+}
+
 .context {
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
