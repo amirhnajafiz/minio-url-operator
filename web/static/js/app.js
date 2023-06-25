@@ -17,6 +17,7 @@ function generateTable(data) {
         let nameField = document.createElement("td");
         nameField.innerText = name;
         nameField.style.textAlign = 'left';
+        nameField.classList.add("border-right")
 
         let linkField = document.createElement("td");
         let linkButton = document.createElement("button");
@@ -24,6 +25,7 @@ function generateTable(data) {
             getObjectURL(name);
         };
         linkButton.innerText = "Get URL";
+        linkButton.classList.add("btn", "url-btn")
 
         linkField.appendChild(linkButton);
 
