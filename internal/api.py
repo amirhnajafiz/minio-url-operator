@@ -29,8 +29,25 @@ class API(object):
 
             return jsonify([item.object_name for item in objects])
 
+        @self.blueprint.route("/objects/<address>", methods=['GET'])
+        def redirect_address(address):
+            """redirect to shared storage if enabled
+
+            :param address: object address in our system
+            """
+            pass
+
+        @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
+        def update_object(bucket, key):
+            """update object enable or disable
+
+            :param bucket: object bucket
+            :param key: object key
+            """
+            pass
+
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['GET'])
-        def get_object_url(bucket, key):
+        def get_object_address(bucket, key):
             """get object url
 
             :param bucket: object bucket
