@@ -19,21 +19,34 @@ cfg.load()
 sqlC = SQLConnector(host=cfg.sql['host'])
 
 cursor = sqlC.get_cursor()
-path = ""
+paths = []
 
 # choosing the migration type
 if sys.argv[1] == "up":
-    path = "up-migration-object_urls-001.sql"
+    paths = [
+        "up-migration-object_urls-001.sql",
+        "up-migration-address_column-002.sql"
+    ]
 else:
-    path = "down-migration-object_urls-001.sql"
+    paths = [
+        "down-migration-address_column-002.sql",
+        "down-migration-object_urls-001.sql"
+    ]
 
-# read migration query
-with open(f'database/sql/{path}', 'r') as file:
-    query = file.read()
+queries = []
+
+# read migration
+for path in paths:
+    with open(f'database/sql/{path}', 'r') as file:
+        query = file.read()
+        queries.append(query)
+
+        logging.info(f'migrating: {path}')
 
 logging.info(f'migration started: {sys.argv[1]}')
 
 # execute migration
-cursor.execute(query)
+for query in queries:
+    cursor.execute(query)
 
 logging.info("migration completed")
