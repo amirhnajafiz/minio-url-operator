@@ -120,6 +120,12 @@ body {
     background-color: #00c77c;
 }
 
+.search-btn {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
 .red-color {
     color: #ff310d;
 }
