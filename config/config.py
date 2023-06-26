@@ -26,8 +26,6 @@ class Config(object):
             self.minio['access'] = read_value_from_env("MINIO_ACCESS")
             self.minio['secret'] = read_value_from_env("MINIO_SECRET")
             self.minio['secure'] = bool(read_value_from_env("MINIO_SECURE"))
-
-            self.sql['host'] = read_value_from_env("SQL_HOST")
         except Exception as e:
             return f"[config.load] failed to read params error={e}", True
 
