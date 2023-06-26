@@ -6,8 +6,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN chmod +x ./scripts/*
-
-RUN ./scripts/migration.sh up
+RUN python migrate.py up
 
 CMD python script.py
