@@ -1,5 +1,6 @@
 from flask import Flask
 import sys
+import logging
 
 from internal.api import API
 from internal.views import Views
@@ -10,12 +11,18 @@ from storage.sql import SQLConnector
 from config.config import Config
 
 
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.DEBUG,
+    format='[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+)
+
 # load app configs
 cfg = Config()
 
 error, flag = cfg.load()
 if flag:  # if error occurs
-    print(error)
+    logging.error(error)
     sys.exit(-1)
 
 # open connection to storages
@@ -30,7 +37,7 @@ minioC = MinioConnector(
 
 errorC, flag = minioC.ping()
 if flag:
-    print(errorC)
+    logging.error(error)
     sys.exit(-2)
 
 
@@ -44,6 +51,7 @@ app = Flask(__name__,
 app.register_blueprint(API(sqlC, minioC).get_blue_print())
 app.register_blueprint(Views().get_blue_print())
 
+logging.info(f"application started on port: {cfg.port}")
 
 if __name__ == "__main__":
     app.run("127.0.0.1", cfg.port, debug=cfg.debug)
