@@ -9,7 +9,9 @@ class Config(object):
         self.debug = True
 
         self.minio = {}
-        self.sql = {}
+        self.sql = {
+            'host': 'database/sql.db'
+        }
 
     def load(self) -> (str, bool):
         """"load configs into class fields
