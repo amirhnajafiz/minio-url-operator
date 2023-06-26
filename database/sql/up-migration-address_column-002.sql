@@ -1,0 +1,2 @@
+ALTER TABLE object_urls
+    ADD COLUMN address VARCHAR(1024) NOT NULL;
