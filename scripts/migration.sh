@@ -2,4 +2,4 @@
 
 HTTP_PORT=8080 HTTP_DEBUG=True \
   SQL_HOST=database/sql.db \
-  python migrate.py "$1"
+  python3 migrate.py "$1"

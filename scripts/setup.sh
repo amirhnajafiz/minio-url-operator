@@ -8,4 +8,4 @@ HTTP_PORT=8080 HTTP_DEBUG=True \
   MINIO_SECRET=oqZnjItFQSnOURApT1Y42UxGSG9nRDgZWPI0OGGV \
   MINIO_SECURE=False \
   SQL_HOST=database/sql.db \
-  python script.py
+  python3 script.py
