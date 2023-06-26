@@ -8,4 +8,4 @@ COPY . .
 
 RUN python migrate.py up
 
-CMD python script.py
+CMD python main.py
