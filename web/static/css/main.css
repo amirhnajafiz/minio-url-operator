@@ -127,6 +127,8 @@ body {
 .url-btn {
     background-color: #00f195;
     color: #ffff;
+    display: inline-flex;
+    align-items: center;
 }
 
 .url-btn:hover {
