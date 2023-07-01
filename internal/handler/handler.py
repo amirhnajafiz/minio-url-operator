@@ -85,7 +85,10 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("INSERT INTO object_urls (bucket, object, url, created_at) VALUES (?,?,?,?);", url.write())
+        cursor.execute(
+            "INSERT INTO object_urls (bucket, object, url, created_at, address, status) VALUES (?,?,?,?,?,?);",
+            url.write()
+        )
 
         self.database.commit()
 
@@ -179,6 +182,9 @@ class Handler(object):
 
         url = URL()
         url.read(row)
+
+        if url.status == 1:
+            return ""
 
         cursor.close()
 
