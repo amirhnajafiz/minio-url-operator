@@ -105,6 +105,24 @@ class Handler(object):
 
         cursor.close()
 
+    def get_object_address(self, bucket: str, key: str) -> str:
+        """get address of an object
+
+        :param bucket: object bucket
+        :param key: object key
+        :return: address
+        """
+        # get a new cursor
+        cursor = self.database.get_cursor()
+
+        cursor.execute("SELECT address FROM objects_urls WHERE bucket=? AND object=?", [bucket, key])
+
+        url = cursor.fetchone()
+
+        cursor.close()
+
+        return url[0]
+
     def get_object_url_by_address(self, address: str) -> str:
         """get object url by its address
 
