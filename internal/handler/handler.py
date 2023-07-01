@@ -105,6 +105,20 @@ class Handler(object):
 
         cursor.close()
 
+    def update_object(self, object_id: int, status: int):
+        """update url status to set enable value
+
+        :param object_id: object id
+        :param status: object status
+        """
+        # get a new cursor
+        cursor = self.database.get_cursor()
+
+        cursor.execute("UPDATE objects_urls SET status=? WHERE id=?", [status, object_id])
+        self.database.commit()
+
+        cursor.close()
+
     def get_object_address(self, bucket: str, key: str) -> str:
         """get address of an object
 
