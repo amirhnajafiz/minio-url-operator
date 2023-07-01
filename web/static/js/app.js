@@ -4,7 +4,7 @@ const downloadIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height=
 
 
 // create tables from object names.
-function generateTable(data) {
+function generateTable(bucket, data) {
     let responseDiv = document.getElementById("response-div");
     let mainTable = document.createElement("table");
 
@@ -42,16 +42,27 @@ function generateTable(data) {
         let updateField = document.createElement("td");
         let updateLinkButton = document.createElement("button");
         updateLinkButton.onclick = function () {
-            updateObject(0, 0);
+            updateObject(bucket, name, 0);
         }
         updateLinkButton.classList.add("btn", "url-btn");
-        updateLinkButton.innerText = "Update";
+        updateLinkButton.innerText = "Enable";
 
         updateField.appendChild(updateLinkButton);
+
+        let updateField2 = document.createElement("td");
+        let updateLinkButton2 = document.createElement("button");
+        updateLinkButton.onclick = function () {
+            updateObject(bucket, name, 1);
+        }
+        updateLinkButton2.classList.add("btn", "url-btn");
+        updateLinkButton2.innerText = "Disable";
+
+        updateField2.appendChild(updateLinkButton2);
 
         mainTable.appendChild(nameField);
         mainTable.appendChild(linkField);
         mainTable.appendChild(updateField);
+        mainTable.appendChild(updateField2);
         mainTable.appendChild(document.createElement("tr"));
     });
 
@@ -69,7 +80,7 @@ function getObjects() {
     fetch(`/api/objects?bucket=${bucket}&prefix=${prefix}`)
         .then((response) => response.json())
         .then((data) => {
-            generateTable(data);
+            generateTable(bucket, data);
         })
         .catch((e) => {
             console.error(e);
