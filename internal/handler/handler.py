@@ -105,6 +105,30 @@ class Handler(object):
 
         cursor.close()
 
+    def __get_object_url(self, bucket: str, key: str) -> str:
+        """get selected object url
+
+        :param bucket: object minio bucket
+        :param key: object key
+        :return: object url
+        """
+        # get object from database
+        url, valid = self.__get_object__(bucket, key)
+
+        # if not valid then create url and save it into database
+        if not valid:  # create a new instance
+            url = URL(bucket, key, self.__create_url_for_object__(bucket, key))
+            url.createdAt = datetime.now()
+
+            self.__create_object__(url)
+        elif not self.__check_url_time__(url):  # if it was expired create new one
+            url.url = self.__create_url_for_object__(url.bucket, url.key)
+            url.createdAt = datetime.now()
+
+            self.__update_object_url__(url)
+
+        return url.url
+
     def update_object(self, object_id: int, status: int):
         """update url status to set enable value
 
@@ -157,28 +181,4 @@ class Handler(object):
 
         cursor.close()
 
-        return self.get_object_url(url.bucket, url.key)
-
-    def get_object_url(self, bucket: str, key: str) -> str:
-        """get selected object url
-
-        :param bucket: object minio bucket
-        :param key: object key
-        :return: object url
-        """
-        # get object from database
-        url, valid = self.__get_object__(bucket, key)
-
-        # if not valid then create url and save it into database
-        if not valid:  # create a new instance
-            url = URL(bucket, key, self.__create_url_for_object__(bucket, key))
-            url.createdAt = datetime.now()
-
-            self.__create_object__(url)
-        elif not self.__check_url_time__(url):  # if it was expired create new one
-            url.url = self.__create_url_for_object__(url.bucket, url.key)
-            url.createdAt = datetime.now()
-
-            self.__update_object_url__(url)
-
-        return url.url
+        return self.__get_object_url(url.bucket, url.key)
