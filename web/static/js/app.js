@@ -37,11 +37,21 @@ function generateTable(data) {
         linkButtonText.style.marginLeft = "10px";
 
         linkButton.appendChild(linkButtonText);
-
         linkField.appendChild(linkButton);
+
+        let updateField = document.createElement("td");
+        let updateLinkButton = document.createElement("button");
+        updateLinkButton.onclick = function () {
+            updateObject(0, 0);
+        }
+        updateLinkButton.classList.add("btn", "url-btn");
+        updateLinkButton.innerText = "Update";
+
+        updateField.appendChild(updateLinkButton);
 
         mainTable.appendChild(nameField);
         mainTable.appendChild(linkField);
+        mainTable.appendChild(updateField);
         mainTable.appendChild(document.createElement("tr"));
     });
 
