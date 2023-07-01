@@ -105,7 +105,7 @@ class Handler(object):
 
         cursor.close()
 
-    def __get_object_url_by_address(self, address: str):
+    def get_object_url_by_address(self, address: str) -> str:
         """get object url by its address
 
         :param address: object address
@@ -114,13 +114,18 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT url FROM objects_urls WHERE address=?", [address])
+        cursor.execute("SELECT * FROM objects_urls WHERE address=?", [address])
 
-        url = cursor.fetchone()
+        row = cursor.fetchone()
+        if row in None:
+            return ""
+
+        url = URL()
+        url.read(row)
 
         cursor.close()
 
-        return url[0]
+        return self.get_object_url(url.bucket, url.key)
 
     def get_object_url(self, bucket: str, key: str) -> str:
         """get selected object url
