@@ -129,16 +129,17 @@ class Handler(object):
 
         return url.url
 
-    def update_object(self, object_id: int, status: int):
+    def update_object(self, bucket: str, key: str, status: int):
         """update url status to set enable value
 
-        :param object_id: object id
+        :param bucket: object bucket
+        :param key: object key
         :param status: object status
         """
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE objects_urls SET status=? WHERE id=?", [status, object_id])
+        cursor.execute("UPDATE objects_urls SET status=? WHERE bucket=? AND object=?", [status, bucket, key])
         self.database.commit()
 
         cursor.close()

@@ -41,15 +41,16 @@ class API(object):
 
             return redirect(url)
 
-        @self.blueprint.route("/objects/<object_id>", methods=['POST'])
-        def update_object(object_id):
+        @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
+        def update_object(bucket, key):
             """update object enable or disable
 
-            :param object_id: object id
+            :param bucket: object bucket
+            :param key: object key
             """
             status = request.args.get("status", 1)
 
-            api.update_object(object_id, status)
+            api.update_object(bucket, key, status)
 
             return "OK", 200
 

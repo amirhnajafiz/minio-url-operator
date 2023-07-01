@@ -80,8 +80,8 @@ function getObjects() {
 }
 
 // update object url.
-function updateObject(id, status) {
-    fetch(`/api/objects/${id}?status=${status}`)
+function updateObject(bucket, key, status) {
+    fetch(`/api/objects/${bucket}/${key}?status=${status}`)
         .then(() => {
             console.log("update");
 
