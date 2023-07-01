@@ -1,8 +1,19 @@
 from datetime import datetime, timedelta
+import random
+import string
 
 from storage.sql import SQLConnector
 from storage.minio import MinioConnector
 from model.url import URL
+
+
+def get_random_string(length: int) -> str:
+    """generate a random string for address
+
+    :param length: size of string
+    :return: random string
+    """
+    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
 
 class Handler(object):
@@ -120,7 +131,8 @@ class Handler(object):
 
         # if not valid then create url and save it into database
         if not valid:  # create a new instance
-            url = URL(bucket, key, self.__create_url_for_object__(bucket, key))
+            address = get_random_string(10)
+            url = URL(bucket, key, self.__create_url_for_object__(bucket, key), address)
             url.createdAt = datetime.now()
 
             self.__create_object__(url)
