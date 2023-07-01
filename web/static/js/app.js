@@ -69,6 +69,21 @@ function getObjects() {
         });
 }
 
+// update object url.
+function updateObject(id, status) {
+    fetch(`/api/objects/${id}?status=${status}`)
+        .then(() => {
+            console.log("update");
+
+            alert("Update successfully!")
+        })
+        .catch((e) => {
+            console.error(e);
+
+            alert("Failed to update!")
+        })
+}
+
 // get url of an object
 function getObjectURL(key) {
     let bucket = document.getElementById("bucket").value;
