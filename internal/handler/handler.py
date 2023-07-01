@@ -25,7 +25,7 @@ class Handler(object):
         self.time_factor = 3600 * 24 * 6
         self.time_limit = 7
 
-    def get_objects_metadata(self, bucket, prefix=""):
+    def get_objects_metadata(self, bucket, prefix="") -> list:
         """get objects of a bucket based on prefix
 
         :param bucket: minio bucket
@@ -36,7 +36,25 @@ class Handler(object):
 
         objects = client.list_objects(bucket, prefix=prefix)
 
-        return [item for item in objects]
+        objects_list = []
+
+        for item in objects:
+            tmp, valid = self.__get_object__(bucket, item.object_name)
+            if not valid:
+                object_pack = {
+                    'name': item.object_name,
+                    'status': -1,
+                }
+            else:
+                object_pack = {
+                    'name': item.object_name,
+                    'status': tmp.status,
+                    'created_at': tmp.created_at
+                }
+
+            objects_list.append(object_pack)
+
+        return objects_list
 
     def __get_object__(self, bucket: str, key: str) -> (URL, bool):
         """get object from database
