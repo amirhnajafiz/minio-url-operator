@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect
 
 from storage.sql import SQLConnector
 from storage.minio import MinioConnector
@@ -35,7 +35,11 @@ class API(object):
 
             :param address: object address in our system
             """
-            pass
+            url = api.get_object_url_by_address(address)
+            if len(url) == 0:
+                return "Address does not exists", 404
+
+            return redirect(url)
 
         @self.blueprint.route("/objects/<object_id>", methods=['POST'])
         def update_object(object_id):
