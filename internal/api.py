@@ -37,14 +37,17 @@ class API(object):
             """
             pass
 
-        @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
-        def update_object(bucket, key):
+        @self.blueprint.route("/objects/<object_id>", methods=['POST'])
+        def update_object(object_id):
             """update object enable or disable
 
-            :param bucket: object bucket
-            :param key: object key
+            :param object_id: object id
             """
-            pass
+            status = request.args.get("status", 1)
+
+            api.update_object(object_id, status)
+
+            return "OK", 200
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['GET'])
         def get_object_address(bucket, key):
@@ -55,7 +58,7 @@ class API(object):
             :return: object url
             """
             return {
-                'address': api.get_object_url(bucket, key)
+                'address': api.get_object_address(bucket, key)
             }
 
     def get_blue_print(self) -> Blueprint:
