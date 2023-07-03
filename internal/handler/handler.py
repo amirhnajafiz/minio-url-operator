@@ -187,9 +187,13 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT address FROM objects_urls WHERE bucket=? AND object=?", [bucket, key])
+        cursor.execute("SELECT address FROM object_urls WHERE bucket=? AND object=?", [bucket, key])
 
         url = cursor.fetchone()
+        if url is None:
+            self.__get_object_url(bucket, key)
+
+            return ""
 
         cursor.close()
 
