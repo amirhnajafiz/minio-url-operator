@@ -8,28 +8,66 @@
 
 <div class="row page-description">
     MUO provides APIs to work with from your application. You can use them
-    in any application that you want. In order to use MUO APIs
-    you need to make HTTP requests as follow:<br /><br />
+    in any application that you want. With this APIs you can control
+    your Minio shared objects links and generate human readable and short
+    url addresses for your objects rather than using Minio long urls.
+    In order to use MUO APIs you need to make HTTP requests as follow:<br /><br />
     <hr />
     <br />
-    List of objects: (Query param)<br /><br />
+    List of objects: (Bucket and Prefix should be placed in query param)<br /><br />
     <pre>
         curl -X GET "localhost:8080/api/objects?bucket=snapp&prefix=list"
     </pre>
     Response:<br /><br />
     <pre>
-        ['image.jpg', 'file.pdf', 'reports.txt']
+        [
+            {
+                'name': 'image.jpg',
+                'status': 0,
+                'created_at': '2023-06-01 19:00:02'
+            },
+            {
+                'name': 'file.pdf',
+                'status': -1,
+            }
+        ]
     </pre>
     <br />
     <hr />
     <br />
-    Get URL of an object: (URL param)<br /><br />
+    Register an object in order to get URL: (Bucket and Key should be placed in URL Param)<br /><br />
+    <pre>
+        curl -X GET "localhost:8080/api/objects/:bucket/:key/register"
+    </pre>
+    Response:<br /><br />
+    <pre>
+        "OK"
+    </pre>
+    <br />
+    <hr />
+    <br />
+    Get URL of an object: (Bucket and Key should be placed in URL Param)<br /><br />
     <pre>
         curl -X GET "localhost:8080/api/objects/:bucket/:key"
     </pre>
     Response:<br /><br />
     <pre>
-        { 'address': 'http://minio-cluster/bucket/addressofobject' }
+        {
+            'address': 'http://localhost/api/objects/m889wierop'
+        }
+    </pre>
+    <br />
+    <hr />
+    <br />
+    Update URL access: (Status should be placed in query param)<br />
+    Status can be 0 or 1.
+    <br /><br />
+    <pre>
+        curl -X POST "localhost:8080/api/objects/:bucket/:key?status=0"
+    </pre>
+    Response:<br /><br />
+    <pre>
+        "OK"
     </pre>
 </div>
 
