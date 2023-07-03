@@ -141,6 +141,39 @@ body {
     background-color: #00c77c;
 }
 
+.enable-btn {
+    background-color: #c2c2c2;
+    color: #1e1e1e;
+    display: inline-flex;
+    align-items: center;
+}
+
+.enable-btn:hover {
+    background-color: #a1a1a1;
+}
+
+.disable-btn {
+    background-color: #ff2c00;
+    color: #ffff;
+    display: inline-flex;
+    align-items: center;
+}
+
+.disable-btn:hover {
+    background-color: #da2500;
+}
+
+.register-btn {
+    background-color: #f2ff5d;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+}
+
+.register-btn:hover {
+    background-color: #f0ff1a;
+}
+
 .border-right {
     border-right: 1px solid #F0F8FFFF;
 }
