@@ -38,12 +38,7 @@ class API(object):
             if len(url) == 0:
                 return "Address does not exists", 404
 
-            if private:
-                uri = f"https://{host}/api/objects/{url}"
-            else:
-                uri = f"http://{host}/api/objects/{url}"
-
-            return redirect(uri), 303
+            return redirect(url), 303
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
         def update_object(bucket, key):
@@ -66,8 +61,17 @@ class API(object):
             :param key: object key
             :return: object url
             """
+            address = api.get_object_address(bucket, key)
+
+            print(private)
+
+            if private:
+                uri = f"https://{host}/api/objects/{address}"
+            else:
+                uri = f"http://{host}/api/objects/{address}"
+
             return {
-                'address': api.get_object_address(bucket, key)
+                'address': uri
             }
 
         @self.blueprint.route("/objects/<bucket>/<key>/register", methods=['GET'])

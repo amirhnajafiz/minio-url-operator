@@ -47,8 +47,10 @@ app = Flask(__name__,
             static_folder='web/static',
             template_folder='web/template')
 
+print(cfg.private)
+
 # register blueprints
-app.register_blueprint(API(sqlC, minioC).get_blue_print())
+app.register_blueprint(API(sqlC, minioC, f'{cfg.host}:{cfg.port}', cfg.private).get_blue_print())
 app.register_blueprint(Views().get_blue_print())
 
 logging.info(f"application started on port: {cfg.port}")
