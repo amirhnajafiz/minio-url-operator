@@ -13,6 +13,9 @@ function generateTable(bucket, data) {
     let nameHeader = document.createElement("th");
     nameHeader.innerText = "Object name";
 
+    let dateHeader = document.createElement("th");
+    dateHeader.innerText = "Created Time";
+
     let linkHeader = document.createElement("th");
     linkHeader.innerText = "Object link";
 
@@ -21,6 +24,7 @@ function generateTable(bucket, data) {
 
     mainTable.appendChild(numberHeader);
     mainTable.appendChild(nameHeader);
+    mainTable.appendChild(dateHeader);
     mainTable.appendChild(linkHeader);
     mainTable.appendChild(statusHeader);
     mainTable.appendChild(document.createElement("tr"));
@@ -28,7 +32,7 @@ function generateTable(bucket, data) {
     data.forEach((item, index) => {
         let numberField = document.createElement("td");
         numberField.innerText = index+1;
-        numberField.style.padding = "8px";
+        numberField.style.padding = "10px";
         numberField.classList.add("border-right");
 
         let nameField = document.createElement("td");
@@ -36,6 +40,11 @@ function generateTable(bucket, data) {
         nameField.style.textAlign = 'left';
         nameField.style.padding = "8px";
         nameField.classList.add("border-right");
+
+        let dateField = document.createElement("td");
+        dateField.innerText = item['created_at'] || "-";
+        dateField.style.padding = "8px";
+        dateField.classList.add("border-right");
 
         let linkField = document.createElement("td");
         let linkButton = document.createElement("button");
@@ -86,6 +95,7 @@ function generateTable(bucket, data) {
 
         mainTable.appendChild(numberField);
         mainTable.appendChild(nameField);
+        mainTable.appendChild(dateField);
         mainTable.appendChild(linkField);
         mainTable.appendChild(updateField);
         mainTable.appendChild(document.createElement("tr"));
