@@ -18,22 +18,30 @@ function generateTable(bucket, data) {
     mainTable.appendChild(linkHeader);
     mainTable.appendChild(document.createElement("tr"));
 
-    data.forEach((name) => {
+    data.forEach((item) => {
         let nameField = document.createElement("td");
-        nameField.innerText = name;
+        nameField.innerText = item['name'];
         nameField.style.textAlign = 'left';
         nameField.classList.add("border-right");
 
         let linkField = document.createElement("td");
         let linkButton = document.createElement("button");
         linkButton.onclick = function () {
-            getObjectURL(name);
+            getObjectURL(item['name']);
         };
-        linkButton.classList.add("btn", "url-btn");
+        if (item['status'] !== -1) {
+            linkButton.classList.add("btn", "url-btn");
+        } else {
+            linkButton.classList.add("btn", "register-btn");
+        }
         linkButton.innerHTML = downloadIcon;
 
         let linkButtonText = document.createElement("span");
-        linkButtonText.innerText = "Copy URL";
+        if (item['status'] !== -1) {
+            linkButtonText.innerText = "Copy URL";
+        } else {
+            linkButtonText.innerText = "Register Object";
+        }
         linkButtonText.style.marginLeft = "10px";
 
         linkButton.appendChild(linkButtonText);
@@ -42,27 +50,25 @@ function generateTable(bucket, data) {
         let updateField = document.createElement("td");
         let updateLinkButton = document.createElement("button");
         updateLinkButton.onclick = function () {
-            updateObject(bucket, name, 0);
+            updateObject(bucket, item['name'], item['status'] === 0 ? 1 : 0);
         }
-        updateLinkButton.classList.add("btn", "url-btn");
-        updateLinkButton.innerText = "Enable";
+        if (item['status'] === 0) {
+            updateLinkButton.classList.add("btn", "disable-btn");
+            updateLinkButton.innerText = "Disable";
+        } else if (item['status'] === 1) {
+            updateLinkButton.classList.add("btn", "enable-btn");
+            updateLinkButton.innerText = "Enable";
+        } else {
+            updateLinkButton = document.createElement("span");
+            updateLinkButton.onclick = null;
+            updateLinkButton.innerText = "You need to register first";
+        }
 
         updateField.appendChild(updateLinkButton);
-
-        let updateField2 = document.createElement("td");
-        let updateLinkButton2 = document.createElement("button");
-        updateLinkButton.onclick = function () {
-            updateObject(bucket, name, 1);
-        }
-        updateLinkButton2.classList.add("btn", "url-btn");
-        updateLinkButton2.innerText = "Disable";
-
-        updateField2.appendChild(updateLinkButton2);
 
         mainTable.appendChild(nameField);
         mainTable.appendChild(linkField);
         mainTable.appendChild(updateField);
-        mainTable.appendChild(updateField2);
         mainTable.appendChild(document.createElement("tr"));
     });
 
@@ -92,16 +98,18 @@ function getObjects() {
 
 // update object url.
 function updateObject(bucket, key, status) {
-    fetch(`/api/objects/${bucket}/${key}?status=${status}`)
+    fetch(`/api/objects/${bucket}/${key}?status=${status}`, {
+        method: 'POST'
+    })
         .then(() => {
             console.log("update");
 
-            alert("Update successfully!")
+            alert("Update successfully!");
         })
         .catch((e) => {
             console.error(e);
 
-            alert("Failed to update!")
+            alert("Failed to update!");
         })
 }
 
