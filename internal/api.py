@@ -9,7 +9,7 @@ from .handler.handler import Handler
 class API(object):
     """API manages the backend rest api"""
 
-    def __init__(self, database: SQLConnector, minio_connection: MinioConnector):
+    def __init__(self, database: SQLConnector, minio_connection: MinioConnector, host="", private=False):
         # create a blueprint for application apis
         self.blueprint = Blueprint('api_blueprint', __name__, url_prefix="/api")
 
@@ -38,7 +38,12 @@ class API(object):
             if len(url) == 0:
                 return "Address does not exists", 404
 
-            return redirect(url), 303
+            if private:
+                uri = f"https://{host}/api/objects/{url}"
+            else:
+                uri = f"http://{host}/api/objects/{url}"
+
+            return redirect(uri), 303
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
         def update_object(bucket, key):

@@ -149,7 +149,7 @@ function getObjectURL(key) {
     fetch(`/api/objects/${bucket}/${key}`)
         .then((response) => response.json())
         .then((data) => {
-            let text = window.location.hostname + "/api/objects/" + data['address'];
+            let text = data['address'];
 
             navigator.clipboard.writeText(text).then(function() {
                 alert('URL copied to clipboard.')
