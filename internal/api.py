@@ -1,3 +1,4 @@
+import logging
 from flask import Blueprint, request, jsonify, redirect
 
 from storage.sql import SQLConnector

@@ -208,10 +208,10 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT * FROM objects_urls WHERE address=?", [address])
+        cursor.execute("SELECT * FROM object_urls WHERE address=?", [address])
 
         row = cursor.fetchone()
-        if row in None:
+        if row is None:
             return ""
 
         url = URL()
