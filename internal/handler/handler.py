@@ -190,14 +190,18 @@ class Handler(object):
         cursor.execute("SELECT address FROM object_urls WHERE bucket=? AND object=?", [bucket, key])
 
         url = cursor.fetchone()
-        if url is None:
-            self.__get_object_url(bucket, key)
-
-            return ""
 
         cursor.close()
 
         return url[0]
+
+    def register_object(self, bucket, key) -> str:
+        """register an object into our system
+
+        :param bucket: bucket name
+        :param key: object key
+        """
+        return self.__get_object_url(bucket, key)
 
     def get_object_url_by_address(self, address: str) -> str:
         """get object url by its address

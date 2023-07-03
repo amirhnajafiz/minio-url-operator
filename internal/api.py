@@ -26,7 +26,7 @@ class API(object):
             if bucket == "":
                 return "Bucket cannot be empty", 400
 
-            return jsonify(api.get_objects_metadata(bucket, request.args.get("prefix", "")))
+            return jsonify(api.get_objects_metadata(bucket, request.args.get("prefix", ""))), 200
 
         @self.blueprint.route("/objects/<address>", methods=['GET'])
         def redirect_address(address):
@@ -38,7 +38,7 @@ class API(object):
             if len(url) == 0:
                 return "Address does not exists", 404
 
-            return redirect(url)
+            return redirect(url), 303
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
         def update_object(bucket, key):
@@ -64,6 +64,19 @@ class API(object):
             return {
                 'address': api.get_object_address(bucket, key)
             }
+
+        @self.blueprint.route("/objects/<bucket>/<key>/register", methods=['GET'])
+        def register(bucket, key):
+            """register an object in our system
+
+            :param bucket: bucket name
+            :param key: object key
+            """
+            url = api.register_object(bucket, key)
+            if url is None:
+                return "Failed to register", 503
+
+            return "OK", 200
 
     def get_blue_print(self) -> Blueprint:
         """get api blueprint
