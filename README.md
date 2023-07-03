@@ -17,3 +17,9 @@ sudo HTTP_PORT=80 HTTP_DEBUG=0 MINIO_HOST=localhost:9000 \
  HTTP_HOST=localhost HTTP_PRIVATE=1 \
  python3 main.py
 ```
+
+## View
+
+Visit ```localhost```.
+
+![](https://github.com/amirhnajafiz/minio-url-operator/blob/master/assets/Screen%20Shot%201402-04-12%20at%2016.20.33.png)
