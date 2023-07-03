@@ -164,14 +164,14 @@ body {
 }
 
 .register-btn {
-    background-color: #f2ff5d;
+    background-color: #ffba00;
     color: #000000;
     display: inline-flex;
     align-items: center;
 }
 
 .register-btn:hover {
-    background-color: #f0ff1a;
+    background-color: #cb9200;
 }
 
 .border-right {

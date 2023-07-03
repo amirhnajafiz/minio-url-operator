@@ -14,8 +14,12 @@ function generateTable(bucket, data) {
     let linkHeader = document.createElement("th");
     linkHeader.innerText = "Object link";
 
+    let statusHeader = document.createElement("th");
+    statusHeader.innerText = "URL Access";
+
     mainTable.appendChild(nameHeader);
     mainTable.appendChild(linkHeader);
+    mainTable.appendChild(statusHeader);
     mainTable.appendChild(document.createElement("tr"));
 
     data.forEach((item) => {
@@ -27,7 +31,11 @@ function generateTable(bucket, data) {
         let linkField = document.createElement("td");
         let linkButton = document.createElement("button");
         linkButton.onclick = function () {
-            getObjectURL(item['name']);
+            if (item['status'] !== -1) {
+                getObjectURL(item['name']);
+            } else {
+                register(bucket, item['name']);
+            }
         };
         if (item['status'] !== -1) {
             linkButton.classList.add("btn", "url-btn");
@@ -46,6 +54,7 @@ function generateTable(bucket, data) {
 
         linkButton.appendChild(linkButtonText);
         linkField.appendChild(linkButton);
+        linkField.classList.add("border-right");
 
         let updateField = document.createElement("td");
         let updateLinkButton = document.createElement("button");
@@ -61,7 +70,7 @@ function generateTable(bucket, data) {
         } else {
             updateLinkButton = document.createElement("span");
             updateLinkButton.onclick = null;
-            updateLinkButton.innerText = "You need to register first";
+            updateLinkButton.innerText = "You need to register first!";
         }
 
         updateField.appendChild(updateLinkButton);
@@ -133,4 +142,17 @@ function getObjectURL(key) {
 
             alert("Failed to get object link!");
         });
+}
+
+// register an object
+function register(bucket, key) {
+    fetch(`/api/objects/${bucket}/${key}/register`)
+        .then(() => {
+            getObjects();
+        })
+        .catch((e) => {
+            console.log(e);
+
+            alert("Failed to register!");
+        })
 }
