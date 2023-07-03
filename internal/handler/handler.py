@@ -49,7 +49,7 @@ class Handler(object):
                 object_pack = {
                     'name': item.object_name,
                     'status': tmp.status,
-                    'created_at': tmp.created_at
+                    'created_at': tmp.createdAt
                 }
 
             objects_list.append(object_pack)
@@ -172,7 +172,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE objects_urls SET status=? WHERE bucket=? AND object=?", [status, bucket, key])
+        cursor.execute("UPDATE object_urls SET status=? WHERE bucket=? AND object=?", [status, bucket, key])
         self.database.commit()
 
         cursor.close()
