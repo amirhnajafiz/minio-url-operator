@@ -1,2 +1,3 @@
-flask
-minio
+flask~=2.2.2
+minio~=7.1.14
+requests~=2.26.0
