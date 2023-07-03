@@ -8,6 +8,8 @@ function generateTable(bucket, data) {
     let responseDiv = document.getElementById("response-div");
     let mainTable = document.createElement("table");
 
+    let numberHeader = document.createElement("th");
+
     let nameHeader = document.createElement("th");
     nameHeader.innerText = "Object name";
 
@@ -17,15 +19,22 @@ function generateTable(bucket, data) {
     let statusHeader = document.createElement("th");
     statusHeader.innerText = "URL Access";
 
+    mainTable.appendChild(numberHeader);
     mainTable.appendChild(nameHeader);
     mainTable.appendChild(linkHeader);
     mainTable.appendChild(statusHeader);
     mainTable.appendChild(document.createElement("tr"));
 
-    data.forEach((item) => {
+    data.forEach((item, index) => {
+        let numberField = document.createElement("td");
+        numberField.innerText = index+1;
+        numberField.style.padding = "8px";
+        numberField.classList.add("border-right");
+
         let nameField = document.createElement("td");
         nameField.innerText = item['name'];
         nameField.style.textAlign = 'left';
+        nameField.style.padding = "8px";
         nameField.classList.add("border-right");
 
         let linkField = document.createElement("td");
@@ -75,6 +84,7 @@ function generateTable(bucket, data) {
 
         updateField.appendChild(updateLinkButton);
 
+        mainTable.appendChild(numberField);
         mainTable.appendChild(nameField);
         mainTable.appendChild(linkField);
         mainTable.appendChild(updateField);
