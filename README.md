@@ -10,6 +10,12 @@ With this operator, you can create a persistent url for your objects in Minio.
 
 ## Start
 
+You can use ```docker``` image of MUP in order to setup the operator on ```Docker``` or ```Kubernetes```.
+
+### Commands
+
+### Environment variables
+
 ```shell
 sudo HTTP_PORT=80 HTTP_DEBUG=0 MINIO_HOST=localhost:9000 \
  MINIO_SECURE=0 MINIO_ACCESS=9iWKawYzq68iNMN7MsiU \
