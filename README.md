@@ -12,16 +12,25 @@ With this operator, you can create a persistent url for your objects in Minio.
 
 You can use ```docker``` image of MUP in order to setup the operator on ```Docker``` or ```Kubernetes```.
 
-### Commands
-
-### Environment variables
+### image
 
 ```shell
-sudo HTTP_PORT=80 HTTP_DEBUG=0 MINIO_HOST=localhost:9000 \
- MINIO_SECURE=0 MINIO_ACCESS=9iWKawYzq68iNMN7MsiU \
- MINIO_SECRET=zWwZlmTX56Hr8NYBOpN4ga2zV8oO2ECIjjPHPF20 \
- HTTP_HOST=localhost HTTP_PRIVATE=1 \
- python3 main.py
+docker pull amirhossein21/muo:macos.v0.1
+```
+
+### environment variables
+
+
+### start
+
+```shell
+docker run -d -it \
+ -e HTTP_PORT=80 -e HTTP_DEBUG=0 -e MINIO_HOST=localhost:9000 \
+ -e MINIO_SECURE=0 -e MINIO_ACCESS=9iWKawYzq68iNMN7MsiU \
+ -e MINIO_SECRET=zWwZlmTX56Hr8NYBOpN4ga2zV8oO2ECIjjPHPF20 \
+ -e HTTP_HOST=localhost -e HTTP_PRIVATE=1 \
+ -v muo-volume:/app/database/sql.db \
+ amirhossein21/muo:macos.v0.1
 ```
 
 ## View
