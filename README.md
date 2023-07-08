@@ -2,6 +2,8 @@
 
 ![](https://img.shields.io/badge/Language-Python-blue)
 ![](https://img.shields.io/badge/Storage-Minio-lightgrey)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/amirhnajafiz/minio-url-operator)
+
 
 URL operator for Minio shared objects links. Since Minio object storage provides
 urls for sharing objects with a maximum 7 days limit, you can use this operator
@@ -20,16 +22,16 @@ docker pull amirhossein21/muo:macos.v0.1
 
 ### environment variables
 
-|     Name     |   Type    | Values               | Usage                               |
-|:------------:|:---------:|----------------------|-------------------------------------|
-|  HTTP_PORT   | ```int``` | -                    | HTTP port of MUO API                |
-|  HTTP_DEBUG  | ```int``` | ```0,1```            | Debug flag for logging (0 is True)  |
-|  MINIO_HOST  | ```str``` | ```localhost:9000``` | Minio cluster host                  |
-| MINIO_SECURE | ```int``` | ```0,1```            | Secure Minio connection (0 is True) |
-| MINIO_ACCESS | ```str``` | -                    | Minio access token                  |
-| MINIO_SECRET | ```str``` | -                    | Minio secret token                  |
-|  HTTP_HOST   | ```str``` | -                    | Container host name                 |
-| HTTP_PRIVATE | ```int``` | ```0,1```            | Private host or not (1 is False)    |
+|        Name        |   Type    | Values               | Usage                               |
+|:------------------:|:---------:|----------------------|-------------------------------------|
+|  ```HTTP_PORT```   | ```int``` | -                    | HTTP port of MUO API                |
+|  ```HTTP_DEBUG```  | ```int``` | ```0,1```            | Debug flag for logging (0 is True)  |
+|  ```MINIO_HOST```  | ```str``` | ```localhost:9000``` | Minio cluster host                  |
+| ```MINIO_SECURE``` | ```int``` | ```0,1```            | Secure Minio connection (0 is True) |
+| ```MINIO_ACCESS``` | ```str``` | -                    | Minio access token                  |
+| ```MINIO_SECRET``` | ```str``` | -                    | Minio secret token                  |
+|  ```HTTP_HOST```   | ```str``` | -                    | Container host name                 |
+| ```HTTP_PRIVATE``` | ```int``` | ```0,1```            | Private host or not (1 is False)    |
 
 
 ### start
