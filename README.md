@@ -20,6 +20,17 @@ docker pull amirhossein21/muo:macos.v0.1
 
 ### environment variables
 
+|     Name     |   Type    | Values               | Usage                               |
+|:------------:|:---------:|----------------------|-------------------------------------|
+|  HTTP_PORT   | ```int``` | -                    | HTTP port of MUO API                |
+|  HTTP_DEBUG  | ```int``` | ```0,1```            | Debug flag for logging (0 is True)  |
+|  MINIO_HOST  | ```str``` | ```localhost:9000``` | Minio cluster host                  |
+| MINIO_SECURE | ```int``` | ```0,1```            | Secure Minio connection (0 is True) |
+| MINIO_ACCESS | ```str``` | -                    | Minio access token                  |
+| MINIO_SECRET | ```str``` | -                    | Minio secret token                  |
+|  HTTP_HOST   | ```str``` | -                    | Container host name                 |
+| HTTP_PRIVATE | ```int``` | ```0,1```            | Private host or not (1 is False)    |
+
 
 ### start
 
@@ -32,6 +43,12 @@ docker run -d -it \
  -v muo-volume:/app/database/sql.db \
  amirhossein21/muo:macos.v0.1
 ```
+
+#### sql.db
+
+Since the application is using ```SQLite3``` for storing objects data, make sure to run
+the migrate script before starting the container. You can create a volume for ```database/sql.db```
+in order to save the storage.
 
 ## View
 
