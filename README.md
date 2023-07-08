@@ -55,3 +55,7 @@ in order to save the storage.
 Visit ```localhost```.
 
 ![](https://github.com/amirhnajafiz/minio-url-operator/blob/master/assets/Screen%20Shot%201402-04-12%20at%2016.20.33.png)
+
+## API
+
+In order to use the operator APIs, you can read the ```swagger``` documents in [docs](./docs/swagger.yaml).
