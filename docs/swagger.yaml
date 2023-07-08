@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  title: MUO API - OpenAPI 3.0
+  description: |-
+    This is a document for using Minio URL operator APIs in order to
+    manage links of the objects.
+  version: 1.0.11
+servers:
+  - url: https://localhost/api
+tags:
+  - name: objects
+    description: Manages the objects of Minio cluster
+paths:
+  /objects:
+    get:
+      tags:
+        - objects
+      summary: Get a list of Minio cluster objects meta-data
+      description: Get a list of all available Minio cluster objects meta-data
+      parameters:
+        - in: query
+          name: prefix
+          description: Objects name prefix
+          schema:
+            type: string
+        - in: query
+          name: bucket
+          required: true
+          description: Objects bucket in Minio
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: "image.jpeg"
+                    status:
+                      type: integer
+                      example: 0
+                      enum: [-1,0,1]
+                    created_at:
+                      type: string
+                      example: "2023-06-01 09:45:46.4501"
+                      format: Date
+        '400':
+          description: Empty bucket in input
+  /objects/{address}:
+    get:
+      tags:
+        - objects
+      summary: Get object by address
+      description: Redirect to Minio object by given address
+      parameters:
+        - name: address
+          in: path
+          description: Object address
+          schema:
+            type: string
+          required: True
+          example: 'p0mm8oee34'
+      responses:
+        '404':
+          description: Address not found
+        '303':
+          description: Object found successfully
+  /objects/{bucket}/{key}:
+    get:
+      tags:
+        - objects
+      summary: Get an Object address
+      description: Return the object address in operator
+      parameters:
+        - name: bucket
+          in: path
+          description: Bucket name
+          schema:
+            type: string
+          required: True
+          example: 'snapp'
+        - name: key
+          in: path
+          description: Object name
+          schema:
+            type: string
+          required: True
+          example: 'image.jpeg'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    example: 'http://localhost/api/objects/p0mm8oee34'
+    post:
+      tags:
+        - objects
+      summary: Update object status
+      description: Set new status for object in order to manage the access
+      parameters:
+        - name: bucket
+          in: path
+          description: Bucket name
+          schema:
+            type: string
+          required: True
+          example: 'snapp'
+        - name: key
+          in: path
+          description: Object name
+          schema:
+            type: string
+          required: True
+          example: 'image.jpeg'
+        - name: status
+          in: query
+          description: Object status (0 is enable and 1 is disable)
+          schema:
+            type: integer
+            enum: [0,1]
+            example: 0
+      responses:
+        '200':
+          description: Successful operation
+  /objects/{bucket}/{key}/register:
+    get:
+      tags:
+        - objects
+      summary: Register a new object
+      description: Register object to get an address for it
+      parameters:
+        - name: bucket
+          in: path
+          description: Bucket name
+          schema:
+            type: string
+          required: True
+          example: 'snapp'
+        - name: key
+          in: path
+          description: Object name
+          schema:
+            type: string
+          required: True
+          example: 'image.jpeg'
+      responses:
+        '200':
+          description: Successful operation
+        '503':
+          description: Failed to register

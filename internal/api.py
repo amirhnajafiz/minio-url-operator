@@ -62,8 +62,6 @@ class API(object):
             """
             address = api.get_object_address(bucket, key)
 
-            print(private)
-
             if private:
                 uri = f"https://{host}/api/objects/{address}"
             else:
