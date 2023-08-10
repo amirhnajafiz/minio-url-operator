@@ -24,16 +24,16 @@ paths = []
 # choosing the migration type
 if sys.argv[1] == "up":
     paths = [
-        "up-migration-object_urls-001.sql",
-        "up-migration-address_column-002.sql",
-        "up-migration-enable_column-003.sql",
+        "up-migration-001-urls_table.sql",
+        "up-migration-002-address_column.sql",
+        "up-migration-003-enable_column.sql",
         "up-migration-"
     ]
 else:
     paths = [
-        "down-migration-enable_column-003.sql",
-        "down-migration-address_column-002.sql",
-        "down-migration-object_urls-001.sql"
+        "down-migration-003-enable_column.sql",
+        "down-migration-002-address_column.sql",
+        "down-migration-001-urls_table.sql"
     ]
 
 queries = []

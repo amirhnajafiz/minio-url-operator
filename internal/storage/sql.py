@@ -1,15 +1,24 @@
-import sqlite3
-import os
+import mysql.connector
 
 
-class SQLConnector(object):
-    """SQLConnector manages the connection to database"""
+class MySQL(object):
+    """MySQL manages the connection to database"""
 
-    def __init__(self, host: str):
-        self._create_host(host)
-        self.connection = sqlite3.connect(host, check_same_thread=False)
+    def __init__(self, host: str, port: int, user: str, password: str, database: str, migration: bool):
+        # opening a connection to mysql server
+        self.connection = mysql.connector.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database
+        )
 
-    def get_cursor(self) -> sqlite3.Cursor:
+    def ping(self) -> bool:
+        """return a boolean to check database connection"""
+        return self.connection.is_connected()
+
+    def get_cursor(self) -> mysql.connector.connection.MySQLCursor:
         """returns a cursor of connection"""
         return self.connection.cursor()
 
@@ -20,21 +29,3 @@ class SQLConnector(object):
     def close_connection(self):
         """closes the database connection"""
         self.connection.close()
-
-    @staticmethod
-    def _close_cursor(cursor: sqlite3.Cursor):
-        """closes cursor
-
-        :param cursor: db cursor
-        """
-        cursor.close()
-
-    @staticmethod
-    def _create_host(host: str):
-        """create database host
-
-        :param host: host address
-        """
-        if not os.path.exists(host):
-            f = open(host, "a")
-            f.close()
