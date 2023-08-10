@@ -17,21 +17,27 @@ You can use ```docker``` image of MUP in order to setup the operator on ```Docke
 ### image
 
 ```shell
-docker pull amirhossein21/muo:macos.v0.1
+docker pull amirhossein21/muo:v0.2
 ```
 
 ### environment variables
 
-|        Name        |   Type    | Values               | Usage                               |
-|:------------------:|:---------:|----------------------|-------------------------------------|
-|  ```HTTP_PORT```   | ```int``` | -                    | HTTP port of MUO API                |
-|  ```HTTP_DEBUG```  | ```int``` | ```0,1```            | Debug flag for logging (0 is True)  |
-|  ```MINIO_HOST```  | ```str``` | ```localhost:9000``` | Minio cluster host                  |
-| ```MINIO_SECURE``` | ```int``` | ```0,1```            | Secure Minio connection (0 is True) |
-| ```MINIO_ACCESS``` | ```str``` | -                    | Minio access token                  |
-| ```MINIO_SECRET``` | ```str``` | -                    | Minio secret token                  |
-|  ```HTTP_HOST```   | ```str``` | -                    | Container host name                 |
-| ```HTTP_PRIVATE``` | ```int``` | ```0,1```            | Private host or not (1 is False)    |
+|         Name         |    Type    | Example              | Description             |
+|:--------------------:|:----------:|----------------------|-------------------------|
+|   ```HTTP_PORT```    | ```int```  | ```8080```           | HTTP port of MUO API    |
+|   ```HTTP_DEBUG```   | ```bool``` | ```true```           | Debug flag for logging  |
+|   ```HTTP_HOST```    | ```str```  | ```127.0.0.1```      | Container host name     |
+|  ```HTTP_PRIVATE```  | ```bool``` | ```false```          | Private host or not     |
+|   ```MYSQL_HOST```   | ```str```  | ```127.0.0.1```      | MySQL cluster host      |
+|   ```MYSQL_PORT```   | ```int```  | ```3306```           | MySQL cluster port      |
+|   ```MYSQL_USER```   | ```str```  | ```root```           | MySQL user              |
+| ```MYSQL_PASSWORD``` | ```str```  | ```pa$$word```       | MySQL pass              |
+|    ```MYSQL_DB```    | ```str```  | ```minio-db```       | MySQL database          |
+| ```MYSQL_MIGRATE```  | ```bool``` | ```false```          | Database migration      |
+|   ```MINIO_HOST```   | ```str```  | ```localhost:9000``` | Minio cluster host      |
+|  ```MINIO_SECURE```  | ```bool``` | ```false```          | Secure Minio connection |
+|  ```MINIO_ACCESS```  | ```str```  | -                    | Minio access token      |
+|  ```MINIO_SECRET```  | ```str```  | -                    | Minio secret token      |
 
 
 ### start
@@ -42,15 +48,8 @@ docker run -d -it \
  -e MINIO_SECURE=0 -e MINIO_ACCESS=9iWKawYzq68iNMN7MsiU \
  -e MINIO_SECRET=zWwZlmTX56Hr8NYBOpN4ga2zV8oO2ECIjjPHPF20 \
  -e HTTP_HOST=localhost -e HTTP_PRIVATE=1 \
- -v muo-volume:/app/database/sql.db \
- amirhossein21/muo:macos.v0.1
+ amirhossein21/muo:v0.2
 ```
-
-#### sql.db
-
-Since the application is using ```SQLite3``` for storing objects data, make sure to run
-the migrate script before starting the container. You can create a volume for ```database/sql.db```
-in order to save the storage.
 
 ## View
 
@@ -60,4 +59,4 @@ Visit ```localhost```.
 
 ## API
 
-In order to use the operator APIs, you can read the ```swagger``` documents in [docs](./docs/swagger.yaml).
+In order to use the operator APIs, you can read the ```swagger``` documents in [docs](./api/swagger.yaml).
