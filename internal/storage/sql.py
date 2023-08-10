@@ -4,7 +4,7 @@ import mysql.connector
 class MySQL(object):
     """MySQL manages the connection to database"""
 
-    def __init__(self, host: str, port: int, user: str, password: str, database: str, migration: bool):
+    def __init__(self, host: str, port: int, user: str, password: str, database: str):
         # opening a connection to mysql server
         self.connection = mysql.connector.connect(
             host=host,

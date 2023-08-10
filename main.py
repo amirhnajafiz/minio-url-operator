@@ -6,8 +6,9 @@ import logging
 from internal.api import API
 from internal.views import Views
 
-from storage.minio import MinioConnector
-from storage.sql import SQLConnector
+# storage connections
+from internal.storage.minio import MinioConnector
+from internal.storage.sql import MySQL
 
 # config module
 from internal.config.config import Config
@@ -28,20 +29,24 @@ if flag:  # if error occurs
     logging.error(error)
     sys.exit(-1)
 
-# open connection to storages
-sqlC = SQLConnector(host=cfg.sql['host'])
 
-minioC = MinioConnector(
+# open connection to storages
+# mysql
+dbConnection = MySQL(
+    host=cfg.mysql['host'],
+    port=cfg.mysql['port'],
+    user=cfg.mysql['user'],
+    password=cfg.mysql['pass'],
+    database=cfg.mysql['name']
+)
+
+# minio
+minioConnection = MinioConnector(
     host=cfg.minio['host'],
     access=cfg.minio['access'],
     secret=cfg.minio['secret'],
     secure=False,
 )
-
-errorC, flag = minioC.ping()
-if flag:
-    logging.error(error)
-    sys.exit(-2)
 
 
 # create a new flask application
@@ -50,13 +55,22 @@ app = Flask(__name__,
             static_folder='web/static',
             template_folder='web/template')
 
-print(cfg.private)
-
 # register blueprints
-app.register_blueprint(API(sqlC, minioC, f'{cfg.host}:{cfg.port}', cfg.private).get_blue_print())
+app.register_blueprint(API(dbConnection, minioConnection, f'{cfg.host}:{cfg.port}', cfg.private).get_blue_print())
 app.register_blueprint(Views().get_blue_print())
 
-logging.info(f"application started on port: {cfg.port}")
 
 if __name__ == "__main__":
+    # check mysql connection
+    if not dbConnection.ping():
+        logging.error("mysql connection failed!")
+        sys.exit(-2)
+
+    # check minio connection
+    errorM, flag = minioConnection.ping()
+    if flag:
+        logging.error(errorM)
+        sys.exit(-3)
+
+    logging.info(f"operator started on port: {cfg.port} ...")
     app.run("127.0.0.1", cfg.port, debug=cfg.debug)
