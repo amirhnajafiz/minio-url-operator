@@ -26,7 +26,8 @@ if sys.argv[1] == "up":
     paths = [
         "up-migration-object_urls-001.sql",
         "up-migration-address_column-002.sql",
-        "up-migration-enable_column-003.sql"
+        "up-migration-enable_column-003.sql",
+        "up-migration-"
     ]
 else:
     paths = [
