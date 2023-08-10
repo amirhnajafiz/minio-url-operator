@@ -1,5 +1,6 @@
 assets/
 build/
+api/
 README.md
 .gitignore
 .dockerignore
