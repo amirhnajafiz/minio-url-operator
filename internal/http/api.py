@@ -1,14 +1,14 @@
 from flask import Blueprint, request, jsonify, redirect
 
-from storage.sql import SQLConnector
-from storage.minio import MinioConnector
+from ..storage.mysql import MySQL
+from ..storage.minio import MinioConnector
 from .handler.handler import Handler
 
 
 class API(object):
     """API manages the backend rest api"""
 
-    def __init__(self, database: SQLConnector, minio_connection: MinioConnector, host="", private=False):
+    def __init__(self, database: MySQL, minio_connection: MinioConnector, host="", private=False):
         # create a blueprint for application apis
         self.blueprint = Blueprint('api_blueprint', __name__, url_prefix="/api")
 

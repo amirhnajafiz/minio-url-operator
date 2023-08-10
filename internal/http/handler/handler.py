@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 import random
 import string
 
-from storage.sql import SQLConnector
-from storage.minio import MinioConnector
-from model.url import URL
+from ...storage.mysql import MySQL
+from ...storage.minio import MinioConnector
+from database.model.url import URL
 
 
 def get_random_string(length: int) -> str:
@@ -19,7 +19,7 @@ def get_random_string(length: int) -> str:
 class Handler(object):
     """Handler manages the logic of our backend"""
 
-    def __init__(self, database: SQLConnector, minio_connection: MinioConnector):
+    def __init__(self, database: MySQL, minio_connection: MinioConnector):
         self.database = database
         self.minio_connection = minio_connection
         self.time_factor = 3600 * 24 * 6
