@@ -67,7 +67,7 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         # select a url from database
-        cursor.execute(f'SELECT * FROM object_urls WHERE bucket = ? AND object = ?;', [bucket, key])
+        cursor.execute(f'SELECT * FROM `urls` WHERE `bucket` = ? AND `key` = ?;', [bucket, key])
 
         # fetch the first item
         record = cursor.fetchone()
@@ -115,7 +115,7 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         cursor.execute(
-            "INSERT INTO object_urls (bucket, object, url, created_at, address, status) VALUES (?,?,?,?,?,?);",
+            "INSERT INTO `urls` (bucket, key, url, created_at, address, status) VALUES (?,?,?,?,?,?);",
             url.write()
         )
 
@@ -131,7 +131,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE object_urls SET url=?, created_at=? WHERE id=?", [url.url, url.createdAt, url.id])
+        cursor.execute("UPDATE `urls` SET `url` = ?, `created_at` = ? WHERE `id` = ?", [url.url, url.createdAt, url.id])
 
         self.database.commit()
 
@@ -172,7 +172,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE object_urls SET status=? WHERE bucket=? AND object=?", [status, bucket, key])
+        cursor.execute("UPDATE `urls` SET `status` = ? WHERE `bucket` = ? AND `key` = ?", [status, bucket, key])
         self.database.commit()
 
         cursor.close()
@@ -187,7 +187,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT address FROM object_urls WHERE bucket=? AND object=?", [bucket, key])
+        cursor.execute("SELECT `address` FROM `urls` WHERE `bucket` = ? AND `key` = ?", [bucket, key])
 
         url = cursor.fetchone()
 
@@ -212,7 +212,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT * FROM object_urls WHERE address=?", [address])
+        cursor.execute("SELECT * FROM `urls` WHERE `address` = ?", [address])
 
         row = cursor.fetchone()
         if row is None:
