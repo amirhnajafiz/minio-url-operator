@@ -3,8 +3,8 @@ import sys
 import logging
 
 # api modules
-from internal.api import API
-from internal.views import Views
+from internal.http.api import API
+from internal.http.views import Views
 
 # storage connections
 from internal.storage.minio import MinioConnector
