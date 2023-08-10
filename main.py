@@ -8,7 +8,7 @@ from internal.views import Views
 
 # storage connections
 from internal.storage.minio import MinioConnector
-from internal.storage.sql import MySQL
+from internal.storage.mysql import MySQL
 
 # config module
 from internal.config.config import Config
