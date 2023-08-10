@@ -1,0 +1,2 @@
+ALTER TABLE urls
+    ADD COLUMN address VARCHAR(1024) NOT NULL;
