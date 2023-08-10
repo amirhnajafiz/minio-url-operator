@@ -1,4 +1,5 @@
 from flask import Flask
+
 import sys
 import logging
 
@@ -8,9 +9,11 @@ from internal.views import Views
 from storage.minio import MinioConnector
 from storage.sql import SQLConnector
 
-from config.config import Config
+# config module
+from internal.config.config import Config
 
 
+# set logging module
 logging.basicConfig(
     stream=sys.stdout,
     level=logging.DEBUG,
