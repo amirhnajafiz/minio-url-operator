@@ -11,9 +11,7 @@ class Config(object):
         self.debug = True
 
         self.minio = {}
-        self.sql = {
-            'host': 'database/sql.db'
-        }
+        self.mysql = {}
 
     def load(self) -> (str, bool):
         """"load configs into class fields
@@ -22,17 +20,30 @@ class Config(object):
         """
         try:
             self.host = read_value_from_env("HTTP_HOST")
-            self.private = int(read_value_from_env("HTTP_PRIVATE"))
-            self.private = True if self.private == 0 else False
+
+            self.private = read_value_from_env("HTTP_PRIVATE")
+            self.private = True if self.private == "true" else False
+
             self.port = int(read_value_from_env("HTTP_PORT"))
-            self.debug = int(read_value_from_env("HTTP_DEBUG"))
-            self.debug = True if self.debug == 0 else False
+
+            self.debug = read_value_from_env("HTTP_DEBUG")
+            self.debug = True if self.debug == "true" else False
+
+            self.mysql['host'] = read_value_from_env("MYSQL_HOST")
+            self.mysql['port'] = int(read_value_from_env("MYSQL_PORT"))
+            self.mysql['user'] = read_value_from_env("MYSQL_HOST")
+            self.mysql['pass'] = read_value_from_env("MYSQL_PASSWORD")
+            self.mysql['name'] = read_value_from_env("MYSQL_DB")
+
+            self.mysql['migrate'] = read_value_from_env("MYSQL_MIGRATE")
+            self.mysql['migrate'] = True if self.mysql['migrate'] == "true" else False
 
             self.minio['host'] = read_value_from_env("MINIO_HOST")
             self.minio['access'] = read_value_from_env("MINIO_ACCESS")
             self.minio['secret'] = read_value_from_env("MINIO_SECRET")
-            self.minio['secure'] = int(read_value_from_env("MINIO_SECURE"))
-            self.minio['secure'] = True if self.minio['secure'] == 0 else False
+
+            self.minio['secure'] = read_value_from_env("MINIO_SECURE")
+            self.minio['secure'] = True if self.minio['secure'] == "true" else False
 
         except Exception as e:
             return f"[config.load] failed to read params error={e}", True
