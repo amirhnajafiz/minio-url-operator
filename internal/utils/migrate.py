@@ -6,24 +6,16 @@ import logging
 DIRECTORY = "./database/migrations"
 
 
-def migrate(connection: mysql.connector.connection.MySQLConnection) -> bool:
+def migrate(connection: mysql.connector.connection.MySQLCursor):
     """migrate database sql files
 
-    :param connection: mysql connection
-    :return: bool, for result
+    :param connection: mysql connection cursor
     """
-    if not connection.is_connected():
-        return False
-
-    cursor = connection.cursor()
-
     for file in [filename for filename in os.listdir(DIRECTORY) if filename.startswith('up')]:
         with open(DIRECTORY+"/"+file, 'r') as f:
             query = f.read()
-            cursor.execute(query)
+            connection.execute(query)
 
             logging.info(f"migrated: {file}")
 
-    cursor.close()
-
-    return True
+    connection.close()

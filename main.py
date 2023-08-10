@@ -1,8 +1,8 @@
 from flask import Flask
-
 import sys
 import logging
 
+# api modules
 from internal.api import API
 from internal.views import Views
 
@@ -71,6 +71,11 @@ if __name__ == "__main__":
     if flag:
         logging.error(errorM)
         sys.exit(-3)
+
+    # migrate database if needed
+    if cfg.mysql['migrate']:
+        from internal.utils.migrate import migrate
+        migrate(dbConnection.get_cursor())
 
     logging.info(f"operator started on port: {cfg.port} ...")
     app.run("127.0.0.1", cfg.port, debug=cfg.debug)
