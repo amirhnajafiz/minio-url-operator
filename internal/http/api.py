@@ -71,19 +71,6 @@ class API(object):
                 'address': uri
             }
 
-        @self.blueprint.route("/objects/<bucket>/<key>/register", methods=['GET'])
-        def register(bucket, key):
-            """register an object in our system
-
-            :param bucket: bucket name
-            :param key: object key
-            """
-            url = api.register_object(bucket, key)
-            if url is None:
-                return "Failed to register", 503
-
-            return "OK", 200
-
     def get_blue_print(self) -> Blueprint:
         """get api blueprint
 

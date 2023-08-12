@@ -39,24 +39,19 @@ class Handler(object):
         objects_list = []
 
         for item in objects:
-            tmp, valid = self.__get_object__(bucket, item.object_name)
-            if not valid:
-                object_pack = {
-                    'name': item.object_name,
-                    'status': -1,
-                }
-            else:
-                object_pack = {
-                    'name': item.object_name,
-                    'status': tmp.status,
-                    'created_at': tmp.createdAt
-                }
+            tmp = self.__get_object__(bucket, item.object_name)
+
+            object_pack = {
+                'name': item.object_name,
+                'status': tmp.status,
+                'created_at': tmp.createdAt
+            }
 
             objects_list.append(object_pack)
 
         return objects_list
 
-    def __get_object__(self, bucket: str, key: str) -> (URL, bool):
+    def __get_object__(self, bucket: str, key: str) -> URL:
         """get object from database
 
         :param bucket: object bucket
@@ -71,8 +66,12 @@ class Handler(object):
 
         # fetch the first item
         record = cursor.fetchone()
-        if record is None:
-            return URL(), False
+        if record is None:  # if not found then we register it
+            self.__register_object(bucket, key)
+
+            # not we read it again
+            cursor.execute(f'SELECT * FROM `urls` WHERE `bucket` = %s AND `object_key` = %s', [bucket, key])
+            record = cursor.fetchone()
 
         # create the url
         url = URL()
@@ -80,7 +79,7 @@ class Handler(object):
 
         cursor.close()
 
-        return url, True
+        return url
 
     def __check_url_time__(self, url: URL) -> bool:
         """check if the url is expired or not
@@ -145,16 +144,9 @@ class Handler(object):
         :return: object url
         """
         # get object from database
-        url, valid = self.__get_object__(bucket, key)
+        url = self.__get_object__(bucket, key)
 
-        # if not valid then create url and save it into database
-        if not valid:  # create a new instance
-            address = get_random_string(10)
-            url = URL(bucket, key, self.__create_url_for_object__(bucket, key), address)
-            url.createdAt = datetime.now()
-
-            self.__create_object__(url)
-        elif not self.__check_url_time__(url):  # if it was expired create new one
+        if not self.__check_url_time__(url):  # if it was expired create new one
             url.url = self.__create_url_for_object__(url.bucket, url.key)
             url.createdAt = datetime.now()
 
@@ -195,13 +187,17 @@ class Handler(object):
 
         return url[0]
 
-    def register_object(self, bucket, key) -> str:
+    def __register_object(self, bucket, key):
         """register an object into our system
 
         :param bucket: bucket name
         :param key: object key
         """
-        return self.__get_object_url(bucket, key)
+        address = get_random_string(10)
+        url = URL(bucket, key, self.__create_url_for_object__(bucket, key), address)
+        url.createdAt = datetime.now()
+
+        self.__create_object__(url)
 
     def get_object_url_by_address(self, address: str) -> str:
         """get object url by its address
