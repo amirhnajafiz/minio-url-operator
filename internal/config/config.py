@@ -31,7 +31,7 @@ class Config(object):
 
             self.mysql['host'] = read_value_from_env("MYSQL_HOST")
             self.mysql['port'] = int(read_value_from_env("MYSQL_PORT"))
-            self.mysql['user'] = read_value_from_env("MYSQL_HOST")
+            self.mysql['user'] = read_value_from_env("MYSQL_USER")
             self.mysql['pass'] = read_value_from_env("MYSQL_PASSWORD")
             self.mysql['name'] = read_value_from_env("MYSQL_DB")
 
