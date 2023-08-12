@@ -19,6 +19,9 @@
 
 .navigation {
     padding: 15px;
+    background-color: #e7e7e7;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .nav-item {
@@ -29,7 +32,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    border: 1px solid #e7e7e7;
+    border: 1px solid #000000;
 }
 
 .nav-item:hover, .active-item {
@@ -44,7 +47,7 @@
 .context {
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: #F0F8FFFF;
+    border-left: 2px solid #e7e7e7;
     padding: 25px;
 }
 
@@ -90,12 +93,12 @@
 }
 
 .in-row > table > th {
-    border-bottom: 1px solid #F0F8FFFF;
+    border-bottom: 1px solid #000000;
 }
 
 .in-row > table > td {
     text-align: center;
-    border-bottom: 1px solid #F0F8FFFF;
+    border-bottom: 1px solid #000000;
 }
 
 .input {
@@ -106,7 +109,7 @@
 
 .btn {
     padding: 5px 10px;
-    background-color: #00f195;
+    background-color: #008147;
     color: #ffff;
     border-radius: 5px;
     outline: none;
@@ -128,7 +131,7 @@
 }
 
 .url-btn {
-    background-color: #00f195;
+    background-color: #008147;
     color: #ffff;
     display: inline-flex;
     align-items: center;
@@ -172,5 +175,5 @@
 }
 
 .border-right {
-    border-right: 1px solid #F0F8FFFF;
+    border-right: 1px solid #000000;
 }

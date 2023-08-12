@@ -19,14 +19,10 @@ function generateTable(bucket, data) {
     let linkHeader = document.createElement("th");
     linkHeader.innerText = "Object link";
 
-    let statusHeader = document.createElement("th");
-    statusHeader.innerText = "URL Access";
-
     mainTable.appendChild(numberHeader);
     mainTable.appendChild(nameHeader);
     mainTable.appendChild(dateHeader);
     mainTable.appendChild(linkHeader);
-    mainTable.appendChild(statusHeader);
     mainTable.appendChild(document.createElement("tr"));
 
     data.forEach((item, index) => {
@@ -37,7 +33,7 @@ function generateTable(bucket, data) {
 
         let nameField = document.createElement("td");
         nameField.innerText = item['name'];
-        nameField.style.textAlign = 'left';
+        nameField.style.textAlign = 'center';
         nameField.style.padding = "8px";
         nameField.classList.add("border-right");
 
@@ -72,32 +68,11 @@ function generateTable(bucket, data) {
 
         linkButton.appendChild(linkButtonText);
         linkField.appendChild(linkButton);
-        linkField.classList.add("border-right");
-
-        let updateField = document.createElement("td");
-        let updateLinkButton = document.createElement("button");
-        updateLinkButton.onclick = function () {
-            updateObject(bucket, item['name'], item['status'] === 0 ? 1 : 0);
-        }
-        if (item['status'] === 0) {
-            updateLinkButton.classList.add("btn", "disable-btn");
-            updateLinkButton.innerText = "Disable";
-        } else if (item['status'] === 1) {
-            updateLinkButton.classList.add("btn", "enable-btn");
-            updateLinkButton.innerText = "Enable";
-        } else {
-            updateLinkButton = document.createElement("span");
-            updateLinkButton.onclick = null;
-            updateLinkButton.innerText = "You need to register first!";
-        }
-
-        updateField.appendChild(updateLinkButton);
 
         mainTable.appendChild(numberField);
         mainTable.appendChild(nameField);
         mainTable.appendChild(dateField);
         mainTable.appendChild(linkField);
-        mainTable.appendChild(updateField);
         mainTable.appendChild(document.createElement("tr"));
     });
 
