@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+downloading file ...
+</h2>
+
+<script>
+    async function download(url) {
+        fetch(url)
+            .then( res => res.blob() )
+            .then( blob => {
+                let file = window.URL.createObjectURL(blob);
+                window.location.assign(file);
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Failed to download!");
+            });
+    }
+
+    await download("{{ address }}");
+</script>
+
+{% endblock content %}
