@@ -88,7 +88,7 @@ class Handler(object):
         :param url: input url object
         :return: true or false
         """
-        t1 = datetime.strptime(url.createdAt, "%Y-%m-%d %H:%M:%S.%f").date()
+        t1 = url.createdAt.date()
         t2 = datetime.now().date()
 
         return ((t2 - t1).total_seconds() / self.time_factor) < self.time_limit
