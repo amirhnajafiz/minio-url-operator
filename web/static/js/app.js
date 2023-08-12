@@ -176,3 +176,19 @@ function register(bucket, key) {
             alert("Failed to register!");
         })
 }
+
+// get active link
+function active() {
+    let path = window.location.pathname;
+
+    switch (path) {
+        case '/':
+            document.getElementById("home-link").classList.add("active-item");
+            break;
+        case '/docs':
+            document.getElementById("docs-link").classList.add("active-item");
+            break;
+    }
+}
+
+active();

@@ -5,17 +5,13 @@
     font-family: "Apple SD Gothic Neo", monospace;
 }
 
-body {
-    background-color: #00f195;
-}
-
 .container {
-    background-color: #ffff;
     margin: 50px auto;
     width: 80%;
-    border: 1px solid #ffff;
+    min-height: 550px;
+    border: 1px solid #e7e7e7;
     border-radius: 20px;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 
     display: grid;
     grid-template-columns: 20% 80%;
@@ -26,18 +22,19 @@ body {
 }
 
 .nav-item {
-    color: #ffff;
+    color: #000000;
     margin: 15px 20px;
-    padding: 7px 10px;
-    background-color: #00f195;
+    padding: 7px 30px;
     border-radius: 15px;
     display: flex;
     align-items: center;
     text-decoration: none;
+    border: 1px solid #e7e7e7;
 }
 
-.nav-item:hover {
-    background-color: #00c77c;
+.nav-item:hover, .active-item {
+    color: #ffffff;
+    background-color: #333333;
 }
 
 .nav-item > span {
