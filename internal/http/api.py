@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect
+from flask import Blueprint, request, jsonify, render_template
 
 from ..storage.mysql import MySQL
 from ..storage.minio import MinioConnector
@@ -37,7 +37,7 @@ class API(object):
             if len(url) == 0:
                 return "Address does not exists", 404
 
-            return redirect(url), 303
+            return render_template("download.j2", address=url), 200
 
         @self.blueprint.route("/objects/<bucket>/<key>", methods=['POST'])
         def update_object(bucket, key):
