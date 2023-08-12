@@ -34,6 +34,23 @@ class Repository(object):
             bucket, key, expires=timedelta(days=limit),
         )
 
+    def __create_object__(self, url: URL):
+        """create a new object in database
+
+        :param url: url object
+        """
+        # get a new cursor
+        cursor = self.database.get_cursor()
+
+        cursor.execute(
+            "INSERT INTO `urls` (bucket, object_key, url, created_at, address, status) VALUES (%s,%s,%s,%s,%s,%s);",
+            url.write()
+        )
+
+        self.database.commit()
+
+        cursor.close()
+
     def register_object(self, bucket: str, key: str, limit: int):
         """register an object into our system
 
