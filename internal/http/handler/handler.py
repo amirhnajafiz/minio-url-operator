@@ -67,7 +67,7 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         # select a url from database
-        cursor.execute(f'SELECT * FROM `urls` WHERE `bucket` = ? AND `key` = ?;', [bucket, key])
+        cursor.execute(f'SELECT * FROM `urls` WHERE `bucket` = ? AND `object_key` = ?;', [bucket, key])
 
         # fetch the first item
         record = cursor.fetchone()
@@ -115,7 +115,7 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         cursor.execute(
-            "INSERT INTO `urls` (bucket, key, url, created_at, address, status) VALUES (?,?,?,?,?,?);",
+            "INSERT INTO `urls` (bucket, object_key, url, created_at, address, status) VALUES (?,?,?,?,?,?);",
             url.write()
         )
 
@@ -172,7 +172,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE `urls` SET `status` = ? WHERE `bucket` = ? AND `key` = ?", [status, bucket, key])
+        cursor.execute("UPDATE `urls` SET `status` = ? WHERE `bucket` = ? AND `object_key` = ?", [status, bucket, key])
         self.database.commit()
 
         cursor.close()
@@ -187,7 +187,7 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT `address` FROM `urls` WHERE `bucket` = ? AND `key` = ?", [bucket, key])
+        cursor.execute("SELECT `address` FROM `urls` WHERE `bucket` = ? AND `object_key` = ?", [bucket, key])
 
         url = cursor.fetchone()
 
