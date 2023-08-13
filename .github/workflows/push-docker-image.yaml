@@ -9,7 +9,6 @@ env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   REPO_NAME: ${{ secrets.REPO_NAME }}
-  RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
 
 jobs:
   push_to_registry:
@@ -37,5 +36,5 @@ jobs:
           context: .
           file: ./build/Dockerfile
           push: true
-          tags: $RELEASE_VERSION
+          tags: ${{ steps.vars.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
