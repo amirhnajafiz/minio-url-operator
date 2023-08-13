@@ -1,9 +1,10 @@
-name: Release
+name: release
+
 on:
   push:
     tags:
       - 'v*.*.*'
-
+      
 env:
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -11,17 +12,30 @@ env:
   RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
 
 jobs:
-  push-image-to-docker-hub:  # job name
-    runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 # first action : checkout source code
-      - name: docker login
-        run: | # log into docker hub account
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
-      - name: Get current date # get the date of the build
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-      - name: Build the Docker image # push The image to the docker hub
-        run: docker build . --file build/Dockerfile --tag $DOCKER_USER/$REPO_NAME:$RELEASE_VERSION
-      - name: Docker Push
-        run: docker push $DOCKER_USER/$REPO_NAME:$RELEASE_VERSION
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: $DOCKER_USER
+          password: $DOCKER_PASSWORD
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: $DOCKER_USER/$REPO_NAME
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./build/Dockerfile
+          push: true
+          tags: $RELEASE_VERSION
+          labels: ${{ steps.meta.outputs.labels }}
