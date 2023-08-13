@@ -33,5 +33,4 @@ jobs:
           context: .
           file: ./build/Dockerfile
           push: true
-          tags: ${{ env.DOCKER_USER }}/${{ env.REPO_NAME }}:${{ steps.vars.outputs.tag }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ env.DOCKER_USER }}/${{ env.REPO_NAME }}:${GITHUB_REF#refs/tags/}
