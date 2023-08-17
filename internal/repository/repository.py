@@ -1,19 +1,11 @@
 from datetime import datetime, timedelta
-import random
-import string
+
+from utils import get_random_string
 
 from ..storage.minio import MinioConnector
 from ..storage.mysql import MySQL
+
 from database.model.url import URL
-
-
-def get_random_string(length: int) -> str:
-    """generate a random string for address
-
-    :param length: size of string
-    :return: random string
-    """
-    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
 
 
 class Repository(object):
