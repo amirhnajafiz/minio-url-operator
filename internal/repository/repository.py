@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 import random
 import string
 
-from ...storage.minio import MinioConnector
-from ...storage.mysql import MySQL
+from ..storage.minio import MinioConnector
+from ..storage.mysql import MySQL
 from database.model.url import URL
 
 
