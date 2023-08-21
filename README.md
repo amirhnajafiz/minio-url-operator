@@ -17,7 +17,7 @@ You can use ```docker``` image of MUP in order to setup the operator on ```Docke
 ### image
 
 ```shell
-docker pull amirhossein21/muo:v0.3.10
+docker pull amirhossein21/muo:v0.4.0
 ```
 
 ### environment variables
@@ -48,14 +48,8 @@ docker run -d -it \
  -e MINIO_SECURE=0 -e MINIO_ACCESS=9iWKawYzq68iNMN7MsiU \
  -e MINIO_SECRET=zWwZlmTX56Hr8NYBOpN4ga2zV8oO2ECIjjPHPF20 \
  -e HTTP_HOST=localhost -e HTTP_PRIVATE=1 \
- amirhossein21/muo:v0.3.10
+ amirhossein21/muo:v0.4.0
 ```
-
-## View
-
-Visit ```localhost```.
-
-![](https://github.com/amirhnajafiz/minio-url-operator/blob/master/assets/Screen%20Shot%201402-04-12%20at%2016.20.33.png)
 
 ## API
 
