@@ -4,7 +4,7 @@ info:
   description: |-
     This is a document for using Minio URL operator APIs in order to
     manage links of the objects.
-  version: 1.0.11
+  version: 0.4.0
 servers:
   - url: https://localhost/api
 tags:
@@ -42,10 +42,21 @@ paths:
                     name:
                       type: string
                       example: "image.jpeg"
+                    address:
+                      type: string
+                      example: "8jr2i5mt01"
                     status:
                       type: integer
                       example: 0
-                      enum: [-1,0,1]
+                      enum: [0,1]
+                    updated_at:
+                      type: string
+                      example: "2023-06-01 09:45:46.4501"
+                      format: Date
+                    expires_at:
+                      type: string
+                      example: "2023-06-01 09:45:46.4501"
+                      format: Date
                     created_at:
                       type: string
                       example: "2023-06-01 09:45:46.4501"
@@ -123,13 +134,20 @@ paths:
             type: string
           required: True
           example: 'image.jpeg'
-        - name: status
-          in: query
-          description: Object status (0 is enable and 1 is disable)
-          schema:
-            type: integer
-            enum: [0,1]
-            example: 0
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: integer
+                  enum: [0,1]
+                  description: "Object enable or disable"
+                expires:
+                  type: string
+                  example: "2023-06-01 09:45:46.4501"
+                  format: Date
       responses:
         '200':
           description: Successful operation
