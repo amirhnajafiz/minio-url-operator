@@ -12,7 +12,7 @@ def migrate(connection: mysql.connector.connection.MySQLCursor):
     :param connection: mysql connection cursor
     """
     files = [filename for filename in os.listdir(DIRECTORY) if filename.startswith('up')]
-    files.reverse()
+    files.sort()
 
     for file in files:
         with open(DIRECTORY+"/"+file, 'r') as f:
