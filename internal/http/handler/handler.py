@@ -161,17 +161,23 @@ class Handler(object):
 
         return url.url
 
-    def update_object(self, bucket: str, key: str, status: int):
+    def update_object(self, bucket: str, key: str, status: int, expires: datetime):
         """update url status to set enable value
 
         :param bucket: object bucket
         :param key: object key
         :param status: object status
+        :param expires: expire time
         """
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE `urls` SET `status` = %s WHERE `bucket` = %s AND `object_key` = %s", [status, bucket, key])
+        cursor.execute(
+            '''UPDATE `urls` 
+                SET `status` = %s, `expires_at` = %s, `updated_at` = %s 
+                WHERE `bucket` = %s AND `object_key` = %s''',
+            [status, expires, datetime.now(), bucket, key]
+        )
         self.database.commit()
 
         cursor.close()
