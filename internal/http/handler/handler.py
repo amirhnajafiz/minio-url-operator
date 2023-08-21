@@ -143,24 +143,6 @@ class Handler(object):
 
         cursor.close()
 
-    def __get_object_url(self, bucket: str, key: str) -> str:
-        """get selected object url
-
-        :param bucket: object minio bucket
-        :param key: object key
-        :return: object url
-        """
-        # get object from database
-        url = self.__get_object__(bucket, key)
-
-        if not self.__check_url_time__(url):  # if it was expired create new one
-            url.url = self.__create_url_for_object__(url.bucket, url.key)
-            url.createdAt = datetime.now()
-
-            self.__update_object_url__(url)
-
-        return url.url
-
     def update_object(self, bucket: str, key: str, status: int, expires: datetime):
         """update url status to set enable value
 
@@ -221,7 +203,11 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("SELECT * FROM `urls` WHERE `address` = %s", [address])
+        cursor.execute(
+            '''SELECT * FROM `urls` 
+                WHERE `address` = %s AND `status` = 1 AND `expires_at` > NOW()''',
+            [address]
+        )
 
         row = cursor.fetchone()
         if row is None:
@@ -230,9 +216,14 @@ class Handler(object):
         url = URL()
         url.read(row)
 
-        if url.status == 1:
-            return ""
-
         cursor.close()
 
-        return self.__get_object_url(url.bucket, url.key)
+        url = self.__get_object__(url.bucket, url.key)
+
+        if not self.__check_url_time__(url):  # if it was expired create new one
+            url.url = self.__create_url_for_object__(url.bucket, url.key)
+            url.createdAt = datetime.now()
+
+            self.__update_object_url__(url)
+
+        return url.url
