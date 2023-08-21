@@ -6,7 +6,7 @@ info:
     manage links of the objects.
   version: 0.4.0
 servers:
-  - url: https://localhost/api
+  - url: http://localhost/api
 tags:
   - name: objects
     description: Manages the objects of Minio cluster
@@ -151,29 +151,3 @@ paths:
       responses:
         '200':
           description: Successful operation
-  /objects/{bucket}/{key}/register:
-    get:
-      tags:
-        - objects
-      summary: Register a new object
-      description: Register object to get an address for it
-      parameters:
-        - name: bucket
-          in: path
-          description: Bucket name
-          schema:
-            type: string
-          required: True
-          example: 'snapp'
-        - name: key
-          in: path
-          description: Object name
-          schema:
-            type: string
-          required: True
-          example: 'image.jpeg'
-      responses:
-        '200':
-          description: Successful operation
-        '503':
-          description: Failed to register
