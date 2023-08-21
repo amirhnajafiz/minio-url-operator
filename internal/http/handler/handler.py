@@ -41,11 +41,13 @@ class Handler(object):
         for item in objects:
             tmp = self.__get_object__(bucket, item.object_name)
 
-            # todo: add other information like status and expire time
             object_pack = {
                 'name': item.object_name,
+                'address': tmp.address,
                 'status': tmp.status,
-                'created_at': tmp.createdAt
+                'created_at': tmp.createdAt,
+                'updated_at': tmp.updatedAt,
+                'expires_at': tmp.expiresAt
             }
 
             objects_list.append(object_pack)
@@ -70,7 +72,7 @@ class Handler(object):
         if record is None:  # if not found then we register it
             self.__register_object(bucket, key)
 
-            # not we read it again
+            # now we read it again
             cursor.execute(f'SELECT * FROM `urls` WHERE `bucket` = %s AND `object_key` = %s', [bucket, key])
             record = cursor.fetchone()
 
@@ -115,7 +117,8 @@ class Handler(object):
         cursor = self.database.get_cursor()
 
         cursor.execute(
-            "INSERT INTO `urls` (bucket, object_key, url, created_at, address, status) VALUES (%s,%s,%s,%s,%s,%s);",
+            '''INSERT INTO `urls` (bucket, object_key, url, created_at, address, status, expires_at, updated_at) 
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s);''',
             url.write()
         )
 
@@ -131,7 +134,10 @@ class Handler(object):
         # get a new cursor
         cursor = self.database.get_cursor()
 
-        cursor.execute("UPDATE `urls` SET `url` = %s, `created_at` = %s WHERE `id` = %s", [url.url, url.createdAt, url.id])
+        cursor.execute(
+            '''UPDATE `urls` SET `url` = %s, `created_at` = %s WHERE `id` = %s''',
+            [url.url, url.createdAt, url.id]
+        )
 
         self.database.commit()
 

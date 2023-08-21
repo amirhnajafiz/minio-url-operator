@@ -1,4 +1,3 @@
-import sqlite3
 from datetime import datetime
 
 
@@ -16,7 +15,7 @@ class URL(object):
         self.status = 0
         self.expiresAt = None
 
-    def read(self, row: sqlite3.Row):
+    def read(self, row: tuple):
         """read values from database row
 
         :param row: database row
