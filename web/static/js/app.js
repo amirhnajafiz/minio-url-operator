@@ -160,6 +160,9 @@ function active() {
         case '/':
             document.getElementById("home-link").classList.add("active-item");
             break;
+        case '/search':
+            document.getElementById("search-link").classList.add("active-item");
+            break
         case '/docs':
             document.getElementById("docs-link").classList.add("active-item");
             break;

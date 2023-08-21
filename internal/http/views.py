@@ -14,6 +14,10 @@ class Views(object):
             """
             return render_template('index.j2', title="MUO: Home")
 
+        @self.blueprint.route('/search', methods=['GET'])
+        def search_page():
+            return render_template('bucket.j2', title="MUO: Buckets")
+
         @self.blueprint.route('/docs', methods=['GET'])
         def help_page():
             return render_template('help.j2', title="MUO: Docs")
