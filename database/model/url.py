@@ -11,8 +11,10 @@ class URL(object):
         self.key = key
         self.url = url
         self.createdAt = datetime.now()
+        self.updatedAt = self.createdAt
         self.address = address
         self.status = 0
+        self.expiresAt = None
 
     def read(self, row: sqlite3.Row):
         """read values from database row
@@ -27,6 +29,8 @@ class URL(object):
         self.createdAt = row[4]
         self.address = row[5]
         self.status = row[6]
+        self.expiresAt = row[7]
+        self.updatedAt = row[8]
 
     def write(self) -> list:
         """write values into a list
@@ -39,5 +43,7 @@ class URL(object):
             self.url,
             self.createdAt,
             self.address,
-            self.status
+            self.status,
+            self.expiresAt,
+            self.updatedAt
         ]
