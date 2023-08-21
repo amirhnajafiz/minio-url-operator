@@ -46,6 +46,9 @@ class API(object):
             :param bucket: object bucket
             :param key: object key
             """
+            # todo
+            content = request.json  # status, expire time
+
             status = request.args.get("status", 1)
 
             api.update_object(bucket, key, status)

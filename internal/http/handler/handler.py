@@ -41,6 +41,7 @@ class Handler(object):
         for item in objects:
             tmp = self.__get_object__(bucket, item.object_name)
 
+            # todo: add other information like status and expire time
             object_pack = {
                 'name': item.object_name,
                 'status': tmp.status,
