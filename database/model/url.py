@@ -12,7 +12,7 @@ class URL(object):
         self.createdAt = datetime.now()
         self.updatedAt = self.createdAt
         self.address = address
-        self.status = 0
+        self.status = 1
         self.expiresAt = None
 
     def read(self, row: tuple):
