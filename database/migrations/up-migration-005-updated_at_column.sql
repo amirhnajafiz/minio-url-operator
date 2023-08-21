@@ -1,0 +1,2 @@
+ALTER TABLE urls
+    ADD COLUMN updated_at DATETIME;
